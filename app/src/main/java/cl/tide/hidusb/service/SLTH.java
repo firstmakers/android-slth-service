@@ -14,6 +14,7 @@ import java.nio.ByteBuffer;
  */
 public class SLTH implements Runnable{
 
+
     private UsbDevice mDevice;
     private UsbInterface usbInterface;
     private UsbDeviceConnection usbDeviceConnection;
@@ -67,11 +68,12 @@ public class SLTH implements Runnable{
             thread.interrupt();
         }
     }
-
+    /** Return device object */
     public UsbDevice getDevice() {
         return mDevice;
     }
 
+    /** closes the connection and releases objects of this class */
     public void close(){
         stopMonitor();
         usbDeviceConnection.releaseInterface(usbInterface);
@@ -84,16 +86,47 @@ public class SLTH implements Runnable{
         usbEndpointIN = null;
     }
 
+    /** Parse data from device */
     private void processData(byte [] data){
         switch(data[0]){
             /** process data for temperature, light and humidity command */
             case CMD_TLH:
-                double celsius = ((data[2] & 0xFF) << 8) + (data[1] & 0xFF);
-                System.out.println("celsius : " + celsius * 0.0625);
+
+                parseTemperature(data);
+                parseLight(data);
+                parseHumidity(data);
+
                 break;
             default:
                 System.out.println("unable to process this command " + data[0]);
         }
+    }
+
+    /** returns the temperature in celsius */
+    private double parseTemperature(byte [] data){
+        int celsius = ((data[2] & 0xFF) << 8) + (data[1] & 0xFF);
+        // Temperature sensor is disconnected
+        if(celsius == 32767){
+            System. out.println("Temperature sensor is disconnected");
+            return 0;
+        }// Is a temperature below zero
+        else if(celsius> 32767){
+            String s = Integer.toBinaryString(~celsius ).substring(16);
+            int d = - (Integer.parseInt(s,2) + 1);
+            return Math.round((d/16) * 10.0)/10.0;
+        }else{
+            return Math.round((celsius * 0.0625)*10.0)/10.0;
+        }
+    }
+    /** return humidity 1 - 10 scale **/
+    private int parseHumidity(byte[] data){
+        int humidity = ((data[6] & 0xFF) << 8) + (data[5] & 0xFF);
+        return (int)(humidity/78.7);
+    }
+    /** return light in lux */
+    private double parseLight(byte[] data ){
+        double light = ((data[4] & 0xFF) << 8) + (data[3] & 0xFF);
+        return Math.round((light / 1.2)*10.0)/10.0;
     }
 
     @Override

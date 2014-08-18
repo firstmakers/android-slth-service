@@ -1,5 +1,6 @@
 package cl.tide.hidusb.service;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -11,8 +12,13 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+
 import java.util.HashMap;
 import java.util.Iterator;
+
+import cl.tide.hidusb.service.main.MainActivity;
+import cl.tide.hidusb_service.R;
 
 /**
  * This service provides the communication with the device SLTH,
@@ -27,8 +33,15 @@ public class HIDUSBService extends Service {
     /** Action permission **/
     public final String ACTION_USB_PERMISSION =  "cl.tide.hidusb.USB_PERMISSION";
 
+    /** Action for SLTH events */
+    public static final String ACTION_USB_CONNECTED = "cl.tide.hidusb.DEVICE_CONNECTED";
+    public static final String ACTION_USB_DISCONNECTED = "cl.tide.hidusb.DEVICE_DISCONNECTED";
+
+    public static int NOTIFICATION = R.string.local_service_started;
     private UsbManager usbManager;
     private NotificationManager nNotification;
+
+    private NotificationCompat.Builder mBuilder;
 
     /** SLTH vendor id and product id */
     private final int VID = (int)0x04D8;
@@ -51,6 +64,11 @@ public class HIDUSBService extends Service {
     public void onCreate() {
         super.onCreate();
         System.out.println(DEBUG_TAG + " created");
+        nNotification = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+        // The PendingIntent to launch our activity if the user selects this notification
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, MainActivity.class), 0);
 
         /** Register Usb Permission*/
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
@@ -67,6 +85,13 @@ public class HIDUSBService extends Service {
         nNotification = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
 
+        mBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle("SLTH")
+                .setContentText("Service started")
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentIntent(contentIntent);
+
+        showNotification();
         UsbDevice device = findDevice();
 
         if(device!= null){
@@ -88,6 +113,7 @@ public class HIDUSBService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        nNotification.cancel(NOTIFICATION);
         unregisterReceiver(mUsbBroadcastReceiver);
         if(mSLTH!=null) mSLTH.close();
     }
@@ -95,7 +121,6 @@ public class HIDUSBService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         return START_STICKY;
     }
 
@@ -118,6 +143,13 @@ public class HIDUSBService extends Service {
             }
         }
         return null;
+    }
+    private void showNotification() {
+        nNotification.notify(NOTIFICATION, mBuilder.build());
+    }
+
+    public Notification getNotification() {
+        return mBuilder.build();
     }
 
     private void setDevice(UsbDevice device) throws USBException{
@@ -154,10 +186,24 @@ public class HIDUSBService extends Service {
             System.out.println("Not access to device");
         }
     }
+
     public synchronized void stopMonitoring(){
         if(mSLTH != null){
             mSLTH.stopMonitor();
         }
+    }
+
+    public boolean isDeviceConnected(){
+        return mSLTH != null;
+    }
+
+    /** Send disconnection event  via Broadcast receiver **/
+    private void onDisconnect(){
+        sendBroadcast(new Intent().setAction(ACTION_USB_DISCONNECTED));
+    }
+    /** Send connected event via Broadcast receiver  **/
+    private void onConnect(){
+        sendBroadcast(new Intent().setAction(ACTION_USB_CONNECTED));
     }
 
     private final BroadcastReceiver mUsbBroadcastReceiver = new BroadcastReceiver() {
@@ -190,6 +236,7 @@ public class HIDUSBService extends Service {
                 if(mSLTH == null && isCompatibleDevice(device)){
                     try {
                         setDevice(device);
+                        onConnect();
                     } catch (USBException e) {
                         e.printStackTrace();
                     }
@@ -207,7 +254,7 @@ public class HIDUSBService extends Service {
                     if(mSLTH != null){
                         mSLTH.close();
                         mSLTH = null;
-                        //onDisconnect();
+                        onDisconnect();
                     }
 
                 }
