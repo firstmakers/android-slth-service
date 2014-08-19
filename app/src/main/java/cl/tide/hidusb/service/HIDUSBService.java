@@ -86,10 +86,11 @@ public class HIDUSBService extends Service {
         usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
 
         mBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("SLTH")
-                .setContentText("Service started")
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.service_started))
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setContentIntent(contentIntent);
+                .setContentIntent(contentIntent)
+                .setPriority(NotificationCompat.PRIORITY_LOW);
 
         showNotification();
         UsbDevice device = findDevice();
@@ -199,10 +200,14 @@ public class HIDUSBService extends Service {
 
     /** Send disconnection event  via Broadcast receiver **/
     private void onDisconnect(){
+        mBuilder.setContentText(getString(R.string.device_detach));
+        showNotification();
         sendBroadcast(new Intent().setAction(ACTION_USB_DISCONNECTED));
     }
     /** Send connected event via Broadcast receiver  **/
     private void onConnect(){
+        mBuilder.setContentText(getString(R.string.device_attach));
+        showNotification();
         sendBroadcast(new Intent().setAction(ACTION_USB_CONNECTED));
     }
 

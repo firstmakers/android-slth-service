@@ -102,7 +102,6 @@ public class MainActivity extends ActionBarActivity {
             }
         }
 
-
         textView = (TextView) findViewById(R.id.tv);
         btnStart = (Button) findViewById(R.id.button);
         btnStop = (Button) findViewById(R.id.button2);
