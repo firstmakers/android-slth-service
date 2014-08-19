@@ -1,4 +1,4 @@
-package cl.tide.hidusb.service.main;
+package cl.tide.hidusb.client;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;

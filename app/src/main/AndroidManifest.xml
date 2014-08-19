@@ -22,7 +22,7 @@
         </service>
 
         <activity
-            android:name="cl.tide.hidusb.service.main.MainActivity"
+            android:name="cl.tide.hidusb.client.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

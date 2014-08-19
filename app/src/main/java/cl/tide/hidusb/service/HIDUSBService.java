@@ -15,7 +15,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import java.util.HashMap;
 import java.util.Iterator;
-import cl.tide.hidusb.service.main.MainActivity;
+import cl.tide.hidusb.client.MainActivity;
 import cl.tide.hidusb_service.R;
 
 /**
