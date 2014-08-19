@@ -84,10 +84,11 @@ public class MainActivity extends ActionBarActivity {
         mIntentService = new Intent(this, HIDUSBService.class);
         //register broadcast from slth
         if (slthEvents != null) {
-            IntentFilter connected = new IntentFilter(HIDUSBService.ACTION_USB_CONNECTED);
-            registerReceiver(slthEvents, connected);
-            IntentFilter disconnected = new IntentFilter(HIDUSBService.ACTION_USB_DISCONNECTED);
-            registerReceiver(slthEvents, disconnected);
+
+            registerReceiver(slthEvents, new IntentFilter(HIDUSBService.ACTION_USB_CONNECTED));
+            registerReceiver(slthEvents, new IntentFilter(HIDUSBService.ACTION_USB_DISCONNECTED));
+            registerReceiver(slthEvents, new IntentFilter(HIDUSBService.ACTION_USB_NEW_DATA));
+
         }
 
         if (isServiceRunning(HIDUSBService.class)) {
@@ -166,6 +167,12 @@ public class MainActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
+    private void onNewSample(double t,double l, int h){
+        textView.setText("Temperatura : " +t +"\n"+
+                        "Luminosidad : " + l +"\n"+
+                        "Humedad : "+ "\n");
+    }
+
 
     private final BroadcastReceiver slthEvents = new BroadcastReceiver() {
         @Override
@@ -181,6 +188,14 @@ public class MainActivity extends ActionBarActivity {
             else if (HIDUSBService.ACTION_USB_DISCONNECTED.equals(action)){
                 textView.setText("SLTH DISCONNECTED");
                 //
+            }
+            else if(HIDUSBService.ACTION_USB_NEW_DATA.equals(action)){
+                Bundle extras = intent.getExtras();
+                onNewSample(
+                        extras.getDouble(HIDUSBService.TEMPERATURE),
+                        extras.getDouble(HIDUSBService.LIGHT),
+                        extras.getInt(HIDUSBService.HUMIDITY)
+                        );
             }
         }
     };

@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
  */
 public class SLTH implements Runnable{
 
-
+    private SLTHEventListener eventListener;
     private UsbDevice mDevice;
     private UsbInterface usbInterface;
     private UsbDeviceConnection usbDeviceConnection;
@@ -51,6 +51,12 @@ public class SLTH implements Runnable{
             usbDeviceConnection.close();
         }
     }
+
+    /** set listener for new data **/
+    public void setEventListener(SLTHEventListener listener){
+        this.eventListener = listener;
+    }
+
     /** Begin monitor to slth **/
     public void startMonitor(int i, int s){
         if(!monitoring) {
@@ -91,11 +97,12 @@ public class SLTH implements Runnable{
         switch(data[0]){
             /** process data for temperature, light and humidity command */
             case CMD_TLH:
-
-                parseTemperature(data);
-                parseLight(data);
-                parseHumidity(data);
-
+                if(eventListener != null) {
+                    eventListener.OnNewSample(
+                            parseTemperature(data),
+                            parseLight(data),
+                            parseHumidity(data));
+                }
                 break;
             default:
                 System.out.println("unable to process this command " + data[0]);
@@ -108,9 +115,11 @@ public class SLTH implements Runnable{
         // Temperature sensor is disconnected
         if(celsius == 32767){
             System. out.println("Temperature sensor is disconnected");
+            if(eventListener != null)
+                eventListener.OnSensorDetached();
             return 0;
         }// Is a temperature below zero
-        else if(celsius> 32767){
+        else if(celsius > 32767){
             String s = Integer.toBinaryString(~celsius ).substring(16);
             int d = - (Integer.parseInt(s,2) + 1);
             return Math.round((d/16) * 10.0)/10.0;

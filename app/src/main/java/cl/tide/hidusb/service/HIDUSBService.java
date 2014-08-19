@@ -13,18 +13,17 @@ import android.hardware.usb.UsbManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-
 import java.util.HashMap;
 import java.util.Iterator;
-
 import cl.tide.hidusb.service.main.MainActivity;
 import cl.tide.hidusb_service.R;
 
 /**
  * This service provides the communication with the device SLTH,
- * managing events connection and disconnection from the device
+ * managing events connection and disconnection from the device,
+ * get temperature, light and humidity
  * **/
-public class HIDUSBService extends Service {
+public class HIDUSBService extends Service implements SLTHEventListener{
 
     /** debug tag **/
     private final String DEBUG_TAG = "HID_USB_SERVICE";
@@ -36,18 +35,26 @@ public class HIDUSBService extends Service {
     /** Action for SLTH events */
     public static final String ACTION_USB_CONNECTED = "cl.tide.hidusb.DEVICE_CONNECTED";
     public static final String ACTION_USB_DISCONNECTED = "cl.tide.hidusb.DEVICE_DISCONNECTED";
+    public static final String ACTION_USB_NEW_DATA = "cl.tide.hidusb.NEW_DATA";
+
+    /***/
+    public static final String TEMPERATURE = "Temperature";
+    public static final String LIGHT = "Light";
+    public static final String HUMIDITY = "Humidity";
 
     public static int NOTIFICATION = R.string.local_service_started;
     private UsbManager usbManager;
     private NotificationManager nNotification;
 
     private NotificationCompat.Builder mBuilder;
+    private NotificationCompat.Builder sensorDetached;
 
     /** SLTH vendor id and product id */
     private final int VID = (int)0x04D8;
     private final int PID = (int)0x003F;
 
     IBinder mBinder = new LocalBinder();
+
 
     public class LocalBinder extends Binder {
         public HIDUSBService getServerInstance() {
@@ -127,7 +134,7 @@ public class HIDUSBService extends Service {
 
     @Override
     public IBinder onBind(Intent intent)  {
-        System.out.print("onBind");
+        System.out.println("onBind");
         return mBinder;
     }
 
@@ -168,6 +175,7 @@ public class HIDUSBService extends Service {
         else{
             System.out.println(DEBUG_TAG + ": connecting to slth device ");
             mSLTH = new SLTH(device, usbManager);
+            mSLTH.setEventListener(this);
         }
 
     }
@@ -209,6 +217,30 @@ public class HIDUSBService extends Service {
         mBuilder.setContentText(getString(R.string.device_attach));
         showNotification();
         sendBroadcast(new Intent().setAction(ACTION_USB_CONNECTED));
+    }
+
+    @Override
+    public void OnSensorDetached() {
+        System.out.println(" OnSensorDetached ");
+        if(sensorDetached == null) {
+
+            sensorDetached = new NotificationCompat.Builder(this)
+                    .setContentTitle(getString(R.string.app_name))
+                    .setContentText(getString(R.string.sensor_detach))
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setPriority(NotificationCompat.PRIORITY_LOW);
+            nNotification.notify(4567, sensorDetached.build());
+        }
+    }
+
+    @Override
+    public void OnNewSample(double temperature, double light, int humidity) {
+        Intent newData = new Intent();
+        newData.putExtra(TEMPERATURE,temperature);
+        newData.putExtra(LIGHT,light);
+        newData.putExtra(HUMIDITY,humidity);
+        newData.setAction(ACTION_USB_NEW_DATA);
+        sendBroadcast(newData);
     }
 
     private final BroadcastReceiver mUsbBroadcastReceiver = new BroadcastReceiver() {
