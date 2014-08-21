@@ -1,10 +1,13 @@
 package cl.tide.hidusb.service.storage.sqlite;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.mobandme.ada.ObjectContext;
 import com.mobandme.ada.ObjectSet;
 import com.mobandme.ada.exceptions.AdaFrameworkException;
+
+import java.util.List;
 
 /**
  * Created by eDelgado on 11-08-14.
@@ -56,5 +59,21 @@ public class AppDataLogger extends ObjectContext {
 
     public void setSamplesDao(ObjectSet<Samples> samplesDao) {
         this.samplesDao = samplesDao;
+    }
+
+    public void printDB() throws AdaFrameworkException {
+        samplesDao.fill();
+        Log.i("DATALOGGER", "Number of Samples : " +samplesDao.size());
+
+        for(Samples sa : samplesDao){
+            System.out.println(sa.getDate());
+            List<Data> d = sa.getData();
+            Log.i("DATALOGGER", " Total data  : " +d.size());
+            if(d.size()>0){
+                for(Data data : d){
+                    System.out.println(" "+data.getDatetime()+ "Temp : "+data.getTemperature()+"\t Light : " + data.getLight());
+                }
+            }
+        }
     }
 }

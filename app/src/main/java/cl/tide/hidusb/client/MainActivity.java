@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.app.ActivityManager.RunningServiceInfo;
 import cl.tide.hidusb.service.HIDUSBService;
-import cl.tide.hidusb_service.R;
+import cl.tide.hidusb.R;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -170,7 +170,7 @@ public class MainActivity extends ActionBarActivity {
     private void onNewSample(double t,double l, int h){
         textView.setText("Temperatura : " +t +"\n"+
                         "Luminosidad : " + l +"\n"+
-                        "Humedad : "+ "\n");
+                        "Humedad : "+ h);
     }
 
 

@@ -6,6 +6,9 @@ import android.util.Log;
 import com.mobandme.ada.Entity;
 import com.mobandme.ada.ObjectSet;
 import com.mobandme.ada.exceptions.AdaFrameworkException;
+
+import java.io.File;
+
 import cl.tide.hidusb.service.storage.sqlite.AppDataLogger;
 import cl.tide.hidusb.service.storage.sqlite.Data;
 import cl.tide.hidusb.service.storage.sqlite.Samples;
@@ -25,6 +28,8 @@ public class StorageManager {
 
         try {
             this.dataLogger = new AppDataLogger(context);
+            File dbFile = context.getDatabasePath(AppDataLogger.DATABASE_NAME);
+            Log.i(TAG, "DB PATH : "+dbFile.getAbsolutePath());
         }catch (Exception e){
             Log.e(TAG, "Creating persintence object : " + e.toString());
         }
@@ -74,7 +79,6 @@ public class StorageManager {
 
         try {
             dataLogger.samplesDao.save();
-            dataLogger.dataDao.clear();
         } catch (AdaFrameworkException e) {
             e.printStackTrace();
         }
@@ -90,6 +94,12 @@ public class StorageManager {
         }
         return null;
     }
-
+    public void printData(){
+        try {
+            dataLogger.printDB();
+        } catch (AdaFrameworkException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

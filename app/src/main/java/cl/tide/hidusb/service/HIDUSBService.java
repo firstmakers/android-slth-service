@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import cl.tide.hidusb.client.MainActivity;
 import cl.tide.hidusb.service.utils.StorageManager;
-import cl.tide.hidusb_service.R;
+import cl.tide.hidusb.R;
 
 /**
  * This service provides the communication with the device SLTH,
@@ -204,7 +204,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
     public synchronized void stopMonitoring(){
         if(mSLTH != null){
             mSLTH.stopMonitor();
-
+            mStorageManager.printData();
         }
     }
 

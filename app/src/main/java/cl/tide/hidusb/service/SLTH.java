@@ -24,7 +24,7 @@ public class SLTH implements Runnable{
 
     private boolean monitoring = false;
     private int samples;
-    private int interval;
+    private int userInterval;
 
     /** Commands */
     public final static byte  CMD_TLH = (byte) 0x87 ;
@@ -60,7 +60,7 @@ public class SLTH implements Runnable{
     /** Begin monitor to slth **/
     public void startMonitor(int i, int s){
         if(!monitoring) {
-            this.interval = i;
+            this.userInterval = i * 1000;
             this.samples = s;
             thread = new Thread(this);
             thread.start();
@@ -129,8 +129,10 @@ public class SLTH implements Runnable{
     }
     /** return humidity 1 - 10 scale **/
     private int parseHumidity(byte[] data){
-        int humidity = ((data[6] & 0xFF) << 8) + (data[5] & 0xFF);
-        return (int)(humidity/78.7);
+        int humidity = ((data[6] & 0xFF) << 8)  + (data[5] & 0xFF);
+        humidity = (int) (humidity/78.7);
+        System.out.println("humedad  "+ humidity);
+        return humidity;
     }
     /** return light in lux */
     private double parseLight(byte[] data ){
@@ -150,8 +152,12 @@ public class SLTH implements Runnable{
         //put slth command for temperature, light and humidity
         outBuffer.put(CMD_TLH);
 
+        long timestart = 0;
+        long elapsedTime = 0;
+
         while (!thread.isInterrupted()) {
 
+            timestart = System.currentTimeMillis();
             request.queue(outBuffer, 1);
 
             if (usbDeviceConnection.requestWait() == request) {
@@ -164,23 +170,24 @@ public class SLTH implements Runnable{
                 if (inRequest.queue(inBuffer, bufferMaxLength)) {
                     usbDeviceConnection.requestWait();
                     byte[] data = new byte[bufferMaxLength];
-                    for(int i = 0;i < 8; i++){
+                    for(int i = 0;i < 7; i++){
                         data [i] = inBuffer.get(i);
                     }
                     processData(data);
                     inBuffer.clear();
-
                 }
             } else {
                 System.out.println("unable to queue the out command ");
             }
-
             this.samples--;
-            if(samples < 0)
+            if(samples == 0)
                 thread.interrupt();
-
+            elapsedTime =  System.currentTimeMillis() - timestart;
+            System.out.println(":::::::::: Elapsed Time ::::::::: " + elapsedTime );
+            if(elapsedTime > userInterval)
+                elapsedTime = userInterval;
             try {
-                Thread.sleep(interval * 1000 - 960);
+                Thread.sleep(userInterval - elapsedTime);
             } catch (InterruptedException e) {
                 System.out.println("Thread monitor is interrupted ");
                 break;
