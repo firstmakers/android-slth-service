@@ -27,11 +27,11 @@ public class SLTH implements Runnable{
     private int interval;
 
     /** Commands */
-    private final byte  CMD_TLH = (byte) 0x87 ;
-    private final byte  CMD_TL = (byte) 0x81 ;
-    private final byte  CMD_T = (byte) 0x82 ;
-    private final byte  CMD_L = (byte) 0x83 ;
-    private final byte  CMD_H = (byte) 0x86 ;
+    public final static byte  CMD_TLH = (byte) 0x87 ;
+    public final static byte  CMD_TL = (byte) 0x81 ;
+    public final static byte  CMD_T = (byte) 0x82 ;
+    public final static byte  CMD_L = (byte) 0x83 ;
+    public final static byte  CMD_H = (byte) 0x86 ;
 
     /** Constructor **/
     public SLTH(UsbDevice device, UsbManager usbManager){

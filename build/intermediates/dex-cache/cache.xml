@@ -32,6 +32,12 @@
         revision="19.1.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
+        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/com.mobandme.ada_v2.4.1-5ce721a961bc2bc1e803d71e3ba233fee049bbd1.jar"
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/com.mobandme.ada_v2.4.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="ae0c8d2c778a897c64bac70669bfa9915930c6cb"/>
+    <item
         dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-8217756eeea84a8947833856a960b41c2a999693.jar"
         jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"

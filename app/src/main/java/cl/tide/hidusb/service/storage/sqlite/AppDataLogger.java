@@ -11,7 +11,7 @@ import com.mobandme.ada.exceptions.AdaFrameworkException;
  */
 public class AppDataLogger extends ObjectContext {
 
-    public static String DATABASE_NAME = "tideslth";
+    public static String DATABASE_NAME = "db_tideslth";
     public static int DATABASE_VERSION = 1;
 
     public ObjectSet<Samples> samplesDao;
@@ -37,9 +37,9 @@ public class AppDataLogger extends ObjectContext {
     // inicializa la persistencia de datos
     private void initialize() throws AdaFrameworkException{
         if(samplesDao == null)
-            this.samplesDao = new ObjectSet<Samples>(Samples.class, this);
+            this.samplesDao = new ObjectSet <Samples>(Samples.class, this);
         if(this.dataDao == null)
-            this.dataDao = new ObjectSet<Data>(Data.class , this);
+            this.dataDao = new ObjectSet<Data> (Data.class , this);
     }
 
     public ObjectSet<Data> getDataDao() {

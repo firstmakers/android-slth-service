@@ -21,8 +21,8 @@ public class Samples extends Entity {
     @TableField(name = "date", datatype = DATATYPE_STRING ,required = true)
     private String date;
 
-    @TableField(name = "type", datatype = DATATYPE_INTEGER ,required = true)
-    private int type;
+    @TableField(name = "type", datatype = DATATYPE_STRING ,required = true)
+    private String type;
 
     @TableField(name = "number", datatype = DATATYPE_INTEGER )
     private int number;
@@ -36,17 +36,22 @@ public class Samples extends Entity {
     @TableField(name = "longitude", datatype = DATATYPE_DOUBLE)
     private double longitude;
 
+    @TableField(name = "datos",datatype = DATATYPE_ENTITY)
+    private List<Data>  data;
 
     /**
     * *Constructors
     * */
     public Samples(){
         date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
+        data = new ArrayList<Data>();
 
     }
-    public Samples(int number, int interval){
+    public Samples(int interval, int samples){
         date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
-
+        this.interval = interval;
+        this.number = samples;
+        data = new ArrayList<Data>();
     }
 
     /**
@@ -86,11 +91,11 @@ public class Samples extends Entity {
         this.number = number;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -102,4 +107,11 @@ public class Samples extends Entity {
         this.date = date;
     }
 
+    public List getData() {
+        return data;
+    }
+
+    public void setData(List data) {
+        this.data = data;
+    }
 }

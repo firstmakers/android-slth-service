@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import java.util.HashMap;
 import java.util.Iterator;
 import cl.tide.hidusb.client.MainActivity;
+import cl.tide.hidusb.service.utils.StorageManager;
 import cl.tide.hidusb_service.R;
 
 /**
@@ -48,6 +49,8 @@ public class HIDUSBService extends Service implements SLTHEventListener{
 
     private NotificationCompat.Builder mBuilder;
     private NotificationCompat.Builder sensorDetached;
+
+    public StorageManager mStorageManager;
 
     /** SLTH vendor id and product id */
     private final int VID = (int)0x04D8;
@@ -108,8 +111,8 @@ public class HIDUSBService extends Service implements SLTHEventListener{
             }catch (USBException e){
                 e.printStackTrace();
             }
-
         }
+        mStorageManager = new StorageManager(getApplicationContext());
     }
 
     @Override
@@ -191,6 +194,8 @@ public class HIDUSBService extends Service implements SLTHEventListener{
 
         if(mSLTH != null){
             mSLTH.startMonitor(interval, samples);
+            mStorageManager.createSample(interval,samples);
+
         }else {
             System.out.println("Not access to device");
         }
@@ -199,6 +204,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
     public synchronized void stopMonitoring(){
         if(mSLTH != null){
             mSLTH.stopMonitor();
+
         }
     }
 
@@ -235,6 +241,9 @@ public class HIDUSBService extends Service implements SLTHEventListener{
 
     @Override
     public void OnNewSample(double temperature, double light, int humidity) {
+        //save data into db
+        mStorageManager.saveData(temperature,light,humidity);
+        //notify via Intent when new data received
         Intent newData = new Intent();
         newData.putExtra(TEMPERATURE,temperature);
         newData.putExtra(LIGHT,light);
