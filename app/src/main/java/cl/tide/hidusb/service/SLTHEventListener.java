@@ -9,5 +9,6 @@ public interface SLTHEventListener {
     //public void OnNewLightSample(double light);
     //public void OnNewHumiditySample(int humidity);
     public void OnSensorDetached();
+    public void OnStopMonitoring();
     public void OnNewSample(double temperature, double light, int humidity);
 }

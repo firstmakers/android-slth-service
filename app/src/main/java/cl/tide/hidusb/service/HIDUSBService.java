@@ -15,7 +15,9 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import java.util.HashMap;
 import java.util.Iterator;
-import cl.tide.hidusb.client.MainActivity;
+
+import cl.tide.hidusb.client.BaseActivity;
+import cl.tide.hidusb.client.HomeActivity;
 import cl.tide.hidusb.service.utils.StorageManager;
 import cl.tide.hidusb.R;
 
@@ -26,6 +28,7 @@ import cl.tide.hidusb.R;
  * **/
 public class HIDUSBService extends Service implements SLTHEventListener{
 
+    public static final String ACTION_SAMPLE_STOP = "cl.tide.hidusb.STOP_SAMPLE";
     /** debug tag **/
     private final String DEBUG_TAG = "HID_USB_SERVICE";
     /** Package name **/
@@ -78,7 +81,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
+                new Intent(this, HomeActivity.class), 0);
 
         /** Register Usb Permission*/
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
@@ -225,6 +228,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
         sendBroadcast(new Intent().setAction(ACTION_USB_CONNECTED));
     }
 
+
     @Override
     public void OnSensorDetached() {
         System.out.println(" OnSensorDetached ");
@@ -237,6 +241,13 @@ public class HIDUSBService extends Service implements SLTHEventListener{
                     .setPriority(NotificationCompat.PRIORITY_LOW);
             nNotification.notify(4567, sensorDetached.build());
         }
+    }
+
+    @Override
+    public void OnStopMonitoring() {
+        mBuilder.setContentText(getString(R.string.stop_monitoring));
+        showNotification();
+        sendBroadcast(new Intent().setAction(ACTION_SAMPLE_STOP));
     }
 
     @Override

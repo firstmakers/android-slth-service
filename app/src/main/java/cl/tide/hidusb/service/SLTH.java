@@ -25,6 +25,7 @@ public class SLTH implements Runnable{
     private boolean monitoring = false;
     private int samples;
     private int userInterval;
+    private byte userCommand = CMD_TLH;
 
     /** Commands */
     public final static byte  CMD_TLH = (byte) 0x87 ;
@@ -50,6 +51,10 @@ public class SLTH implements Runnable{
         }else{
             usbDeviceConnection.close();
         }
+    }
+
+    public void setCommand(byte command){
+        this.userCommand = command;
     }
 
     /** set listener for new data **/
@@ -104,6 +109,14 @@ public class SLTH implements Runnable{
                             parseHumidity(data));
                 }
                 break;
+            case CMD_TL:
+                if(eventListener != null) {
+                    eventListener.OnNewSample(
+                            parseTemperature(data),
+                            parseLight(data),0);
+
+                }
+                break;
             default:
                 System.out.println("unable to process this command " + data[0]);
         }
@@ -150,14 +163,14 @@ public class SLTH implements Runnable{
         request.initialize(usbDeviceConnection, usbEndpointOUT);
         ByteBuffer inBuffer = ByteBuffer.allocate(bufferMaxLength);
         //put slth command for temperature, light and humidity
-        outBuffer.put(CMD_TLH);
+        outBuffer.put(userCommand);
 
-        long timestart = 0;
+        long timeStart = 0;
         long elapsedTime = 0;
 
         while (!thread.isInterrupted()) {
 
-            timestart = System.currentTimeMillis();
+            timeStart = System.currentTimeMillis();
             request.queue(outBuffer, 1);
 
             if (usbDeviceConnection.requestWait() == request) {
@@ -182,14 +195,15 @@ public class SLTH implements Runnable{
             this.samples--;
             if(samples == 0)
                 thread.interrupt();
-            elapsedTime =  System.currentTimeMillis() - timestart;
-            System.out.println(":::::::::: Elapsed Time ::::::::: " + elapsedTime );
+            elapsedTime =  System.currentTimeMillis() - timeStart;
+            //System.out.println(":::::::::: Elapsed Time ::::::::: " + elapsedTime);
             if(elapsedTime > userInterval)
                 elapsedTime = userInterval;
             try {
                 Thread.sleep(userInterval - elapsedTime);
             } catch (InterruptedException e) {
-                System.out.println("Thread monitor is interrupted ");
+                eventListener.OnStopMonitoring();
+                System.out.println("OnStopMonitoring");
                 break;
             }
         }

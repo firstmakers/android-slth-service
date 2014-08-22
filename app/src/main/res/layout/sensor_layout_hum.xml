@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sensor_bg_hum"
+    android:padding="6dp">
+
+    <RelativeLayout
+        android:id="@+id/container_title"
+        android:background="@drawable/title_sensor_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/sensor_name_hum"
+            android:id="@+id/sensor_name"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true" />
+
+        <ImageButton android:id="@+id/sensor_remove"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_unpin_512"
+            android:contentDescription="@string/action_remove_item"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/container_title"
+            android:layout_marginTop="4dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/sensor_bg_hum"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="hs"
+                android:id="@+id/textView"
+                android:layout_above="@+id/hum_decimal"
+                android:layout_alignRight="@+id/hum_decimal"
+                android:layout_alignEnd="@+id/hum_decimal"
+                android:textSize="20dp"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/sensor_value_decimal"
+                android:id="@+id/hum_decimal"
+                android:maxLength="2"
+                android:textSize="30dp"
+
+                android:layout_marginRight="14dp"
+                android:layout_alignBottom="@+id/hum_value"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/sensor_value"
+                android:textColor="@color/darkblue"
+                android:id="@+id/hum_value"
+                android:textSize="70dp"
+                android:textIsSelectable="false"
+                android:numeric="integer"
+                android:singleLine="true"
+                android:layout_alignBottom="@+id/sensor_icon"
+                android:layout_toLeftOf="@+id/hum_decimal" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginLeft="8dp"
+                android:id="@+id/sensor_icon"
+                android:src="@drawable/ic_humidity_512"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+
+</RelativeLayout>
