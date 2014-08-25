@@ -2,12 +2,14 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:seekarc="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_margin="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sensor_bg_temp"
-    android:padding="6dp">
+    android:padding="10dp">
 
     <RelativeLayout
         android:id="@+id/container_title"
@@ -32,26 +34,70 @@
             android:layout_alignParentLeft="true" />
 
         <ImageButton android:id="@+id/sensor_remove"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_unpin_512"
             android:contentDescription="@string/action_remove_item"
-            android:layout_alignParentTop="true"
+            android:background="@drawable/button_detach"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="4dp" />
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_alignTop="@+id/relativeLayout"
+        android:layout_toStartOf="@+id/relativeLayout"
+        android:layout_toLeftOf="@+id/relativeLayout">
 
+        <com.triggertrap.seekarc.SeekArc
+            android:id="@+id/seekbar_temp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="@drawable/button_detach"
+            android:padding="20dp"
+            seekarc:max="100"
+            seekarc:arcWidth="3dp"
+            seekarc:arcColor="@color/background_btn_detach"
+            seekarc:progressWidth="7dp"
+            seekarc:progressColor="@color/darkred"
+            seekarc:roundEdges="true"
+            seekarc:rotation="180"
+            seekarc:startAngle="30"
+            seekarc:sweepAngle="300"
+            seekarc:touchInside="false"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+             />
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/temperature_status_txt"
+            android:editable="false"
+            android:typeface="monospace"
+            android:textColor="@color/darkred"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="Medium" />
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/container_title"
             android:layout_marginTop="4dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/sensor_bg_temp">
+            android:background="@drawable/sensor_bg_temp"
+            android:padding="10dp"
+            android:id="@+id/relativeLayout">
 
 
             <TextView
@@ -80,14 +126,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginBottom="12dp"
-                android:textColor="@color/darkred" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/sensor_value"
-                android:textColor="@color/darkred"
+                android:textColor="@color/white"
                 android:id="@+id/temp_value"
                 android:textSize="70dp"
                 android:textIsSelectable="false"

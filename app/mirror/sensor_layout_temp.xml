@@ -1,0 +1,19 @@
+<!-- Generated screen file. Fill the id tags below with content with
+which to populate your previewed layout. For a complete specification
+of sample data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/sensor_layout_temp">
+        <!-- TextView Examples:
+        <sensor_name text="@string/string_resource" />
+        <sensor_name text="Text literal" textSize="14sp" /> -->
+        <sensor_name />
+        <sensor_remove></sensor_remove>
+        <textView />
+        <temp_decimal />
+        <temp_value />
+        <!-- ImageView Examples:
+        <sensor_icon src="@drawable/image_resource" />
+        <sensor_icon src="relative_path/image.jpg" /> -->
+        <sensor_icon />
+    </_content>
+</screen>

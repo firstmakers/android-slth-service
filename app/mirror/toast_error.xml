@@ -1,0 +1,15 @@
+<!-- Generated screen file. Fill the id tags below with content with
+which to populate your previewed layout. For a complete specification
+of sample data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/toast_error">
+        <!-- ImageView Examples:
+        <toast_im src="@drawable/image_resource" />
+        <toast_im src="relative_path/image.jpg" /> -->
+        <toast_im />
+        <!-- TextView Examples:
+        <tv_message text="@string/string_resource" />
+        <tv_message text="Text literal" textSize="14sp" /> -->
+        <tv_message />
+    </_content>
+</screen>

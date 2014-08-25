@@ -49,7 +49,7 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
     }
 
     private void startMonitor(){
-        startMonitor(1,10);
+        startMonitor(1, 2000);
     }
 
 

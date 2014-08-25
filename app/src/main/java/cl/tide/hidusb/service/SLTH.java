@@ -194,7 +194,7 @@ public class SLTH implements Runnable{
             }
             this.samples--;
             if(samples == 0)
-                thread.interrupt();
+                stopMonitor();
             elapsedTime =  System.currentTimeMillis() - timeStart;
             //System.out.println(":::::::::: Elapsed Time ::::::::: " + elapsedTime);
             if(elapsedTime > userInterval)

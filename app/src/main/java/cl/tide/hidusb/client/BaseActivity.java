@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.usb.UsbManager;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
@@ -122,6 +124,11 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
 
         mTitle = getTitle();
         titles = getResources().getStringArray(R.array.nav_string);
+        //custom action bar
+       /* final ActionBar actionBar = getSupportActionBar();
+        BitmapDrawable background = new BitmapDrawable (BitmapFactory.decodeResource(getResources(), R.drawable.actionbar_repeat));
+        background.setTileModeX(android.graphics.Shader.TileMode.REPEAT);
+        actionBar.setBackgroundDrawable(background);*/
 
     }
 

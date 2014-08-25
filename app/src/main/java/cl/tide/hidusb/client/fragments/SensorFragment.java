@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.triggertrap.seekarc.SeekArc;
+
 import cl.tide.hidusb.R;
 import cl.tide.hidusb.client.BaseActivity;
 import cl.tide.hidusb.client.model.ValueItem;
@@ -43,6 +46,9 @@ public class SensorFragment extends Fragment implements View.OnClickListener{
     private TextView lightDecimal;
     private TextView humDecimal;
 
+    private SeekArc seekbarTemperature;
+    private SeekArc seekbarHumidity;
+    private SeekArc seekbarLight;
 
     // TODO: Rename and change types of parameters
     private int mParam1;
@@ -101,6 +107,8 @@ public class SensorFragment extends Fragment implements View.OnClickListener{
         final ViewGroup temperature = (ViewGroup) LayoutInflater.from(getActivity()).inflate(
                 R.layout.sensor_layout_temp, viewGroupSensor, false);
         tempValue = (TextView)temperature.findViewById(R.id.temp_value);
+        seekbarTemperature = (SeekArc) temperature.findViewById(R.id.seekbar_temp);
+
         tempDecimal = (TextView)temperature.findViewById(R.id.temp_decimal);
         temperature.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +126,8 @@ public class SensorFragment extends Fragment implements View.OnClickListener{
                 R.layout.sensor_layout_light, viewGroupSensor, false);
         lightValue = (TextView)light.findViewById(R.id.lux_value);
         lightDecimal = (TextView)light.findViewById(R.id.lux_decimal);
+        seekbarLight = (SeekArc) light.findViewById(R.id.seekbar_light);
+
         light.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,6 +144,8 @@ public class SensorFragment extends Fragment implements View.OnClickListener{
                 R.layout.sensor_layout_hum, viewGroupSensor, false);
         humValue = (TextView)humidity.findViewById(R.id.hum_value);
         humDecimal = (TextView)humidity.findViewById(R.id.hum_decimal);
+        seekbarHumidity = (SeekArc) humidity.findViewById(R.id.seekbar_hum);
+
         humidity.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,36 +164,51 @@ public class SensorFragment extends Fragment implements View.OnClickListener{
         btnIniciar.setOnClickListener(this);
     }
 
+    private void setSeekArc(){
+
+    }
+
     //cambia el valor de la etiqueta temperatura
     public void setTextTemperature(ValueItem t){
-
-            this.tempDecimal.setText("."+t.getDecimal());
-            this.tempDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
+       // if(!tempDecimal.getText().equals(t.getDecimal())) {
+         //   this.tempDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
+            this.tempDecimal.setText("." + t.getDecimal());
+       // }
+        //if(!tempValue.getText().equals(t.getInteger())) {
             this.tempValue.setText(t.getInteger() + "");
-            this.tempValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
+           // this.tempValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
+       // }
+        seekbarTemperature.setProgress(t.getInteger());
 
     }
 
     // cambia el valor de la etiqueta luminosidad
     public void setTextLight(ValueItem l){
-
-            this.lightDecimal.setText("."+l.getDecimal());
-            this.lightDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
-
+       // if(!lightDecimal.getText().equals(l.getDecimal())) {
+          //  this.lightDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
+            this.lightDecimal.setText("." + l.getDecimal());
+       // }
+        //if(!lightValue.getText().equals(l.getInteger()+"")) {
+           // this.lightValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
             this.lightValue.setText(l.getInteger() + "");
-            this.lightValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
+        seekbarLight.setProgress(l.getInteger());
+        //}
 
     }
 
     //cambia el valor de la etiqueta humedad
     public void setTextHumidity(ValueItem h){
 
-            this.humDecimal.setText("."+h.getDecimal());
-            this.humDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
+//        if(!humDecimal.getText().equals(h.getDecimal()+"")) {
+          //  this.humDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
+            this.humDecimal.setText("." + h.getDecimal());
 
-            this.humValue.setText(h.getInteger()+"");
-            this.humValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
-
+       // }
+       // if(!humValue.getText().equals(h.getInteger()+"")) {
+         //   this.humValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
+            this.humValue.setText(h.getInteger() + "");
+       // }
+        seekbarHumidity.setProgress(h.getInteger());
     }
 
 

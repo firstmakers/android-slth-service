@@ -18,5 +18,16 @@
     <item name="black70p" type="color">#B2000000</item>
     <item name="ligthgray" type="color">#ccc</item>
     <item name="gray" type="color">#ABABAB</item>
+    <item name="background_orange" type="color">#3cffbb33</item>
+    <item name="background_darkblue" type="color">#3c0099cc</item>
+    <item name="background_red" type="color">#3cFF4444</item>
+    <item name="background_btn_detach" type="color">#3affffff</item>
+    <item name="background_darkgreen" type="color">#ffa9c57a</item>
+    <item name="actionbar" type="color">#ff0c1b2a</item>
+    <item name="darkgray" type="color">#ff555555</item>
+
+
+    <color name="progress_gray">#FFD8D8D8</color>
+    <color name="progress_gray_dark">#FF383838</color>
 
 </resources>

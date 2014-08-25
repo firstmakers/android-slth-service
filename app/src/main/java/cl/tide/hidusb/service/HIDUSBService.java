@@ -207,7 +207,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
     public synchronized void stopMonitoring(){
         if(mSLTH != null){
             mSLTH.stopMonitor();
-            mStorageManager.printData();
+            //mStorageManager.printData();
         }
     }
 
