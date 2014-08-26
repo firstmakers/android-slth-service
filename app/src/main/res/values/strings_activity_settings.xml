@@ -1,0 +1,18 @@
+<resources>
+    <string name="title_setting">Configuración</string>
+    <string name="pref_samples">Parámetros de Medición</string>
+    <string name="pref_samples_interval">Intervalo</string>
+    <string name="pref_samples_number">Número de Muestras</string>
+
+    <string name="pref_storage">Almacenamiento</string>
+    <string name="pref_storage_auto">Guardar Datos Automáticamente</string>
+    <string name="pref_storage_sync">Google Drive</string>
+    <string name="pref_samples_number_summary">Número de mediciones</string>
+    <string name="pref_samples_interval_summary">Intervalo de tiempo en segundos</string>
+    <string name="pref_storage_auto_summary">Guardar los datos de medición automáticamente en este dispositivo</string>
+    <string name="pref_storage_sync_summary">Guardar los datos en Google Drive</string>
+
+    <string name="pref_range_option_title">Use los deslizadores para establecer el rango óptimo de cada medición</string>
+
+    <string name="pref_range">Rango de valores óptimos</string>
+</resources>

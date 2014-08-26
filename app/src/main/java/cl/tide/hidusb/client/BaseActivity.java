@@ -229,6 +229,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
             case 3://datosAlmacenados
                 break;
             case 4: //config
+                startActivity(new Intent(this ,SettingsActivity.class));
                 break;
             case 5:
                 fragmentManager.beginTransaction()
