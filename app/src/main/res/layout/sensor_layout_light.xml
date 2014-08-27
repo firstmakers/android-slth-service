@@ -46,7 +46,7 @@
             android:textColor="@color/darkorange"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:text="Medium" />
+            android:text="" />
 
     </RelativeLayout>
 

@@ -1,7 +1,10 @@
 package cl.tide.hidusb.client;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import cl.tide.hidusb.client.util.NavigationDrawerFragment;
 public class HomeActivity extends BaseActivity implements SensorFragment.OnFragmentClickListener{
 
     Button btnStart;
+    boolean monitoring = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -49,13 +54,17 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
     }
 
     private void startMonitor(){
-        startMonitor(1, 2000);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int interval = sp.getInt("pref_sample_interval", 1);
+        int samples = sp.getInt("pref_sample_samples", 60);
+        Log.i("HOME ACTIVITY ", " Starting monitor, interval " + interval + " samples " + samples);
+        startMonitor(interval, samples);
     }
 
 
     @Override
     protected void onNewSample(double t, double l, int h) {
-        if(sensorView!= null){
+        if(sensorView != null){
             sensorView.setTextTemperature(new ValueItem(t));
             sensorView.setTextLight(new ValueItem(l));
             sensorView.setTextHumidity(new ValueItem(h));
@@ -71,14 +80,14 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
     public void onFragmentInteraction(View v) {
 
         btnStart = (Button) v;
-        System.out.println(btnStart.getText());
+        String text = (String)btnStart.getText();
         if(mService.isDeviceConnected() &&
-                btnStart.getText().equals(getString(R.string.btn_start))) {
+                text.equals(getString(R.string.btn_start))) {
             btnStart.setText(R.string.btn_stop);
             startMonitor();
         }
         else if(mService.isDeviceConnected() &&
-                btnStart.getText().equals(getString(R.string.btn_stop))){
+                text.equals(getString(R.string.btn_stop))){
             btnStart.setText(R.string.btn_start);
             stopMonitor();
         }else

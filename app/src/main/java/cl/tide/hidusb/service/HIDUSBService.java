@@ -210,6 +210,11 @@ public class HIDUSBService extends Service implements SLTHEventListener{
             //mStorageManager.printData();
         }
     }
+    public boolean isMonitoring(){
+        if(mSLTH != null)
+            return mSLTH.isMonitoring();
+        return  false;
+    }
 
     public boolean isDeviceConnected(){
         return mSLTH != null;

@@ -213,4 +213,7 @@ public class SLTH implements Runnable{
     public boolean isCurentDevice(UsbDevice device) {
         return mDevice.getDeviceId() == device.getDeviceId();
     }
+    public boolean isMonitoring(){
+        return monitoring;
+    }
 }

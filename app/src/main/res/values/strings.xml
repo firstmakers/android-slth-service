@@ -47,4 +47,9 @@
     <string name="sensor_detach">El sensor de temperatura está desconectado</string>
     <string name="stop_monitoring">Ha finalizado la medición</string>
 
+    <!-- Indicadores -->
+    <string name="sensor_low">Baja</string>
+    <string name="sensor_medium">Normal</string>
+    <string name="sensor_high">Alta</string>
+
 </resources>
