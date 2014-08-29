@@ -3,9 +3,11 @@ package cl.tide.hidusb.client.fragments;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_PARAM2 = "param2";
     private ViewGroup viewGroupSensor;
+    private final static String TAG = "SENSOR FRAGMENT";
 
     private Button btnIniciar;
     private TextView tempValue;
@@ -58,11 +61,15 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
     private int humMin;
     private int humMax;
 
+    private int color_low;
+    private int color_normal;
+    private int color_high;
+
     private SharedPreferences sharedPreferences;
 
     // TODO: Rename and change types of parameters
     private int mParam1;
-    private String mParam2;
+    private boolean monitoring = false;
 
     private OnFragmentClickListener mListener;
 
@@ -75,11 +82,11 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
      * @return A new instance of fragment SensorFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SensorFragment newInstance(int param1, String param2) {
+    public static SensorFragment newInstance(int param1, boolean monitoring) {
         SensorFragment fragment = new SensorFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putBoolean(ARG_PARAM2, monitoring);
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,27 +99,32 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getInt(ARG_SECTION_NUMBER);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            monitoring = getArguments().getBoolean(ARG_PARAM2);
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+        Resources resources = getResources();
+        color_low = resources.getColor(R.color.darkorange);
+        color_high = resources.getColor(R.color.darkred);
+        color_normal = resources.getColor(R.color.darkgreen);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         tempMin = sharedPreferences.getInt(RangeOptionPreferences.KEY_TEMP_MIN, RangeOptionPreferences.DEFAULT_MIN_VALUE);
         tempMax = sharedPreferences.getInt(RangeOptionPreferences.KEY_TEMP_MAX, RangeOptionPreferences.DEFAULT_MIN_VALUE);
         humMax = sharedPreferences.getInt(RangeOptionPreferences.KEY_HUM_MAX, RangeOptionPreferences.DEFAULT_MAX_VALUE);
         humMin = sharedPreferences.getInt(RangeOptionPreferences.KEY_HUM_MIN, RangeOptionPreferences.DEFAULT_MIN_VALUE);
         lightMin = sharedPreferences.getInt(RangeOptionPreferences.KEY_LIGHT_MIN, RangeOptionPreferences.DEFAULT_MIN_VALUE);
         ligthMax = sharedPreferences.getInt(RangeOptionPreferences.KEY_LIGHT_MAX, RangeOptionPreferences.DEFAULT_MAX_VALUE);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sensor, container, false);
 
         viewGroupSensor = (ViewGroup) v.findViewById(R.id.container_sensor);
         btnIniciar = (Button) v.findViewById(R.id.btn_iniciar);
-        createSensorView();
 
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        if(BaseActivity.MONITORING) btnIniciar.setText(R.string.btn_stop);
+        createSensorView();
         return v;
     }
 
@@ -188,26 +200,26 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
     private void setStatusTemp(int st) {
         if (st < tempMin) {
             statusTemp.setText(R.string.sensor_low);
-            statusTemp.setTextColor(getResources().getColor(R.color.darkorange));
+            statusTemp.setTextColor(color_low);
         } else if (st > tempMax) {
             statusTemp.setText(R.string.sensor_high);
-            statusTemp.setTextColor(getResources().getColor(R.color.darkred));
+            statusTemp.setTextColor(color_high);
         } else {
             statusTemp.setText(R.string.sensor_medium);
-            statusTemp.setTextColor(getResources().getColor(R.color.darkgreen));
+            statusTemp.setTextColor(color_normal);
         }
     }
 
     private void setStatusLight(int sl) {
         if (sl < lightMin) {
             statusLight.setText(R.string.sensor_low);
-            statusLight.setTextColor(getResources().getColor(R.color.darkorange));
+            statusLight.setTextColor(color_low);
         } else if (sl > ligthMax) {
             statusLight.setText(R.string.sensor_high);
-            statusLight.setTextColor(getResources().getColor(R.color.darkred));
+            statusLight.setTextColor(color_high);
         } else {
             statusLight.setText(R.string.sensor_medium);
-            statusLight.setTextColor(getResources().getColor(R.color.darkgreen));
+            statusLight.setTextColor(color_normal);
         }
 
     }
@@ -215,59 +227,52 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
     private void setStatusHum(int sh) {
         if (sh < humMin) {
             statusHum.setText(R.string.sensor_low);
-            statusHum.setTextColor(getResources().getColor(R.color.darkorange));
+            statusHum.setTextColor(color_low);
         } else if (sh > humMax) {
             statusHum.setText(R.string.sensor_high);
-            statusHum.setTextColor(getResources().getColor(R.color.darkred));
+            statusHum.setTextColor(color_high);
         } else {
             statusHum.setText(R.string.sensor_medium);
-            statusHum.setTextColor(getResources().getColor(R.color.darkgreen));
+            statusHum.setTextColor(color_normal);
+
         }
     }
 
     //cambia el valor de la etiqueta temperatura
     public void setTextTemperature(ValueItem t) {
-        // if(!tempDecimal.getText().equals(t.getDecimal())) {
-        //   this.tempDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
-        this.tempDecimal.setText("." + t.getDecimal());
-        // }
-        //if(!tempValue.getText().equals(t.getInteger())) {
-        this.tempValue.setText(t.getInteger() + "");
-        // this.tempValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
-        // }
-        seekbarTemperature.setProgress(t.getInteger());
-        setStatusTemp(t.getInteger());
-
+        try{
+            this.tempDecimal.setText("." + t.getDecimal());
+            this.tempValue.setText(t.getInteger() + "");
+            seekbarTemperature.setProgress(t.getInteger());
+            setStatusTemp(t.getInteger());
+        }catch (IllegalStateException e){
+            Log.e(TAG, "error _:" +e.toString());
+        }
     }
 
     // cambia el valor de la etiqueta luminosidad
     public void setTextLight(ValueItem l) {
-        // if(!lightDecimal.getText().equals(l.getDecimal())) {
-        //  this.lightDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
-        this.lightDecimal.setText("." + l.getDecimal());
-        // }
-        //if(!lightValue.getText().equals(l.getInteger()+"")) {
-        // this.lightValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
-        this.lightValue.setText(l.getInteger() + "");
-        seekbarLight.setProgress(l.getInteger());
-        //}
-        setStatusLight(l.getInteger());
+        try{
+            this.lightDecimal.setText("." + l.getDecimal());
+            this.lightValue.setText(l.getInteger() + "");
+            seekbarLight.setProgress(l.getInteger());
+            setStatusLight(l.getInteger());
+        }catch (IllegalStateException e){
+            Log.e(TAG, "error _:" +e.toString());
+        }
     }
 
     //cambia el valor de la etiqueta humedad
     public void setTextHumidity(ValueItem h) {
+        try{
+            this.humDecimal.setText("." + h.getDecimal());
+            this.humValue.setText(h.getInteger() + "");
+            seekbarHumidity.setProgress(h.getInteger());
+            setStatusHum(h.getInteger());
+        }catch (IllegalStateException e){
+            Log.e(TAG, "error _:" +e.toString());
+        }
 
-//     if(!humDecimal.getText().equals(h.getDecimal()+"")) {
-        //  this.humDecimal.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
-        this.humDecimal.setText("." + h.getDecimal());
-
-        // }
-        // if(!humValue.getText().equals(h.getInteger()+"")) {
-        //   this.humValue.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
-        this.humValue.setText(h.getInteger() + "");
-        // }
-        seekbarHumidity.setProgress(h.getInteger());
-        setStatusHum(h.getInteger());
     }
 
 

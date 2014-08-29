@@ -72,7 +72,7 @@ public class StorageManager {
         Data d = new Data(t,l,h);
         d.setStatus(Entity.STATUS_NEW);
         dataLogger.dataDao.add(d);
-        Log.i(TAG, "Actual Sample " + mSample.getID() + " created at "+ mSample.getDate());
+        //Log.i(TAG, "Actual Sample " + mSample.getID() + " created at "+ mSample.getDate());
 
         mSample.setData(dataLogger.dataDao);
         mSample.setStatus(Entity.STATUS_UPDATED);
@@ -100,6 +100,9 @@ public class StorageManager {
         } catch (AdaFrameworkException e) {
             e.printStackTrace();
         }
+    }
+    public Samples getLastSample(){
+        return mSample;
     }
 
 }

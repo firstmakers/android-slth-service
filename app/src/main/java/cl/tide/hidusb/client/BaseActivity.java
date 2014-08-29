@@ -29,6 +29,7 @@ import cl.tide.hidusb.client.fragments.StatisticsFragment;
 import cl.tide.hidusb.client.util.NavigationDrawerFragment;
 import cl.tide.hidusb.service.HIDUSBService;
 import cl.tide.hidusb.R;
+import cl.tide.hidusb.service.storage.sqlite.Samples;
 
 public abstract class BaseActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -37,6 +38,8 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     private Intent mIntentService;
     public boolean bounded;
     public boolean device = false;
+    public static boolean MONITORING = false;
+
 
     protected NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -50,7 +53,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     private CharSequence mTitle;
     private String[] titles;
 
-    private Button btnStart;
+
 
     protected ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -61,6 +64,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
 
             mService.startForeground(mService.NOTIFICATION, mService.getNotification());
             device = mService.isDeviceConnected();
+            MONITORING = mService.isMonitoring();
         }
 
         @Override
@@ -133,12 +137,17 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     }
 
     public void startMonitor(int i, int m){
+        MONITORING = true;
         mService.startMonitoring(i,m);
     }
     public void stopMonitor(){
         mService.stopMonitoring();
+
     };
 
+    public Samples getLastSample(){
+        return mService.mStorageManager.getLastSample();
+    }
 
     @Override
     protected void onResume() {
@@ -161,7 +170,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
         super.onDestroy();
     }
 
-    protected void onNewSample(double t,double l, int h){
+    protected void onNewSample(double t, double l, int h){
     }
     protected  void onConnect(){
     }
@@ -194,6 +203,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
                         );
             }
             else if(HIDUSBService.ACTION_SAMPLE_STOP.equals(action)){
+                MONITORING = false;
                 onStopMonitor();
             }
         }
@@ -201,27 +211,35 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
 
     protected abstract void onStopMonitor();
 
+
+
     // Navegación barra lateral
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
+        boolean monitor = false;
+        if(mService!= null && mService.isMonitoring())
+            monitor = true;
         switch (position){
             case 0:
-                sensorView = SensorFragment.newInstance(position, "");
+                if(sensorView == null)
+                    sensorView = SensorFragment.newInstance(position, monitor);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, sensorView)
                         .commit();
-
                 break;
             case 1://graficos
-                chartView = ChartFragment.newInstance(position);
+                if(chartView == null )
+                    chartView = ChartFragment.newInstance(position);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, chartView)
                         .commit();
+                    chartView.setSample(getLastSample());
                 break;
             case 2://estadisticas
-                statisticsView = StatisticsFragment.newInstance(position);
+                if(statisticsView == null)
+                    statisticsView = StatisticsFragment.newInstance(position);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, statisticsView)
                         .commit();
@@ -246,7 +264,6 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
             Log.e("main ", " titles " + titles.length);
             mTitle = titles[number];
         }
-
     }
 
     public void restoreActionBar() {

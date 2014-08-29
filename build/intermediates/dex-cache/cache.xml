@@ -8,29 +8,17 @@
         revision="19.1.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
-        dex="/Users/eDelgado/Desktop/Recursos SLTH/HIDUSB_Service/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-5c29cb6ebb5df03872e3ed45c00f41fb959896ae.jar"
-        jar="/Users/eDelgado/Desktop/Recursos SLTH/HIDUSB_Service/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/androidplot-core-0.6.2-SNAPSHOT-315309f04dacfcae52b930e7f50bffe3555e0594.jar"
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/androidplot-core-0.6.2-SNAPSHOT.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+        sha1="161234ca48d0c64e5a4366a35219101f79eddee5"/>
     <item
         dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-dd73384d1281d7042c92c6a032ce2ad2c4f99c36.jar"
         jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
-    <item
-        dex="/Users/eDelgado/Desktop/Recursos SLTH/HIDUSB_Service/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
-    <item
-        dex="/Users/eDelgado/Desktop/Recursos SLTH/HIDUSB_Service/app/build/intermediates/pre-dexed/debug/classes-59b8113620eba52d173283f1c0b2f708537ec3c9.jar"
-        jar="/Users/eDelgado/Desktop/Recursos SLTH/HIDUSB_Service/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
         dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/com.mobandme.ada_v2.4.1-5ce721a961bc2bc1e803d71e3ba233fee049bbd1.jar"
         jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/com.mobandme.ada_v2.4.1.jar"
@@ -43,11 +31,5 @@
         jumboMode="false"
         revision="19.1.0"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
-    <item
-        dex="/Users/eDelgado/Desktop/Recursos SLTH/HIDUSB_Service/app/build/intermediates/pre-dexed/debug/classes-ee4b2609263a2f1583c9f43ad48454171e713f45.jar"
-        jar="/Users/eDelgado/Desktop/Recursos SLTH/HIDUSB_Service/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
 
 </pre-dex-items>

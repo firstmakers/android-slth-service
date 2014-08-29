@@ -35,6 +35,6 @@ public class ValueItem {
 
         this.decimal =  (int) (d * 10);
         this.integer = (int) i;
-        System.out.println("PARTE ENTERA " + integer +" PARTE DECIMAL "+ decimal);
+        //System.out.println("PARTE ENTERA " + integer +" PARTE DECIMAL "+ decimal);
     }
 }

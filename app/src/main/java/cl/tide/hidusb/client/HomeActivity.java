@@ -20,7 +20,7 @@ import cl.tide.hidusb.client.util.NavigationDrawerFragment;
 public class HomeActivity extends BaseActivity implements SensorFragment.OnFragmentClickListener{
 
     Button btnStart;
-    boolean monitoring = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int interval = sp.getInt("pref_sample_interval", 1);
         int samples = sp.getInt("pref_sample_samples", 60);
-        Log.i("HOME ACTIVITY ", " Starting monitor, interval " + interval + " samples " + samples);
+        //Log.i("HOME ACTIVITY ", " Starting monitor, interval " + interval + " samples " + samples);
         startMonitor(interval, samples);
     }
 
@@ -68,6 +68,9 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
             sensorView.setTextTemperature(new ValueItem(t));
             sensorView.setTextLight(new ValueItem(l));
             sensorView.setTextHumidity(new ValueItem(h));
+        }
+        if(chartView != null){
+            chartView.updateChart(t,l,h);
         }
     }
 

@@ -144,7 +144,6 @@ public class SLTH implements Runnable{
     private int parseHumidity(byte[] data){
         int humidity = ((data[6] & 0xFF) << 8)  + (data[5] & 0xFF);
         humidity = (int) (humidity/78.7);
-        System.out.println("humedad  "+ humidity);
         return humidity;
     }
     /** return light in lux */
