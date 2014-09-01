@@ -56,8 +56,8 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
     private void startMonitor(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int interval = sp.getInt("pref_sample_interval", 1);
-        int samples = sp.getInt("pref_sample_samples", 60);
-        //Log.i("HOME ACTIVITY ", " Starting monitor, interval " + interval + " samples " + samples);
+        int samples = sp.getInt("pref_sample_number", 60);
+        Log.i("HOME ACTIVITY ", " Starting monitor, interval " + interval + " samples " + samples);
         startMonitor(interval, samples);
     }
 

@@ -23,7 +23,7 @@
     <item name="background_red" type="color">#3cFF4444</item>
     <item name="background_btn_detach" type="color">#3affffff</item>
     <item name="background_darkgreen" type="color">#ffa9c57a</item>
-    <item name="actionbar" type="color">#ff0c1b2a</item>
+    <item name="actionbar" type="color">#ffb1b1b1</item>
     <item name="darkgray" type="color">#ff555555</item>
 
 

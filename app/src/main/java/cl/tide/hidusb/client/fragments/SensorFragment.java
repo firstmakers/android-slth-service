@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -65,6 +66,10 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
     private int color_normal;
     private int color_high;
 
+    Typeface roboto_regular;
+    Typeface roboto_thin;
+    Typeface bariol;
+
     private SharedPreferences sharedPreferences;
 
     // TODO: Rename and change types of parameters
@@ -102,6 +107,8 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
             monitoring = getArguments().getBoolean(ARG_PARAM2);
         }
         Resources resources = getResources();
+        bariol = Typeface.createFromAsset(resources.getAssets(), "fonts/Bariol_Regular.otf");
+
         color_low = resources.getColor(R.color.darkorange);
         color_high = resources.getColor(R.color.darkred);
         color_normal = resources.getColor(R.color.darkgreen);
@@ -140,6 +147,9 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
         seekbarTemperature = (SeekArc) temperature.findViewById(R.id.seekbar_temp);
         statusTemp = (TextView) temperature.findViewById(R.id.temperature_status_txt);
 
+        TextView titleTemp = (TextView)temperature.findViewById(R.id.sensor_name);
+        titleTemp.setTypeface(bariol);
+
         tempDecimal = (TextView) temperature.findViewById(R.id.temp_decimal);
         temperature.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +169,8 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
         lightDecimal = (TextView) light.findViewById(R.id.lux_decimal);
         seekbarLight = (SeekArc) light.findViewById(R.id.seekbar_light);
         statusLight = (TextView) light.findViewById(R.id.light_status_txt);
+        TextView titleLight = (TextView)light.findViewById(R.id.sensor_name);
+        titleLight.setTypeface(bariol);
 
         light.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,6 +190,9 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
         humDecimal = (TextView) humidity.findViewById(R.id.hum_decimal);
         seekbarHumidity = (SeekArc) humidity.findViewById(R.id.seekbar_hum);
         statusHum = (TextView) humidity.findViewById(R.id.humidity_status_txt);
+
+        TextView titleHum = (TextView)humidity.findViewById(R.id.sensor_name);
+        titleHum.setTypeface(bariol);
 
         humidity.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -38,7 +38,7 @@
     <string name="sensor_name_temp">Temperatura</string>
     <string name="sensor_name_light">Luminosidad</string>
     <string name="sensor_name_hum">Humedad</string>
-    <string name="hello_blank_fragment">Dessarrollado por Austral 38</string>
+    <string name="hello_blank_fragment">Desarrollado por Austral 38</string>
     <string name="action_save">Guardar</string>
     <string name="local_service_started">Servicio iniciado</string>
     <string name="service_started">Servicio Iniciado</string>

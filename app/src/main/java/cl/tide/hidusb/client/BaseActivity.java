@@ -218,28 +218,23 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        boolean monitor = false;
-        if(mService!= null && mService.isMonitoring())
-            monitor = true;
+
         switch (position){
             case 0:
-                if(sensorView == null)
-                    sensorView = SensorFragment.newInstance(position, monitor);
+                sensorView = SensorFragment.newInstance(position, false);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, sensorView)
                         .commit();
                 break;
             case 1://graficos
-                if(chartView == null )
-                    chartView = ChartFragment.newInstance(position);
+                chartView = ChartFragment.newInstance(position);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, chartView)
                         .commit();
                     chartView.setSample(getLastSample());
                 break;
             case 2://estadisticas
-                if(statisticsView == null)
-                    statisticsView = StatisticsFragment.newInstance(position);
+                statisticsView = StatisticsFragment.newInstance(position);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, statisticsView)
                         .commit();
