@@ -21,6 +21,8 @@ public class StorageManager {
     private AppDataLogger dataLogger;
     private Samples mSample;
     private Data mData;
+    public int numberSamples = 0;
+    public int interval = 0;
 
 
     /**Constructor**/
@@ -50,6 +52,9 @@ public class StorageManager {
 
     /**Create a new object of Samples*/
     public void createSample(int i, int m){
+        this.interval = i;
+        this.numberSamples = m;
+
         mSample = new Samples(i, m);
         mSample.setType("0x87");
         mSample.setStatus(Entity.STATUS_NEW);
@@ -81,6 +86,19 @@ public class StorageManager {
             dataLogger.samplesDao.save();
         } catch (AdaFrameworkException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateLocation(double lat, double lon ){
+        if(mSample!=null) {
+            mSample.setLatitude(lat);
+            mSample.setLongitude(lon);
+            mSample.setStatus(Entity.STATUS_UPDATED);
+            try {
+                dataLogger.samplesDao.save();
+            } catch (AdaFrameworkException e) {
+                e.printStackTrace();
+            }
         }
     }
 

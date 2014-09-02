@@ -46,10 +46,16 @@
     <string name="device_attach">Dispositivo conectado</string>
     <string name="sensor_detach">El sensor de temperatura está desconectado</string>
     <string name="stop_monitoring">Ha finalizado la medición</string>
+    <string name="no_device">El dispositivo está desconectado o no se han dado los permisos</string>
 
     <!-- Indicadores -->
     <string name="sensor_low">Baja</string>
     <string name="sensor_medium">Normal</string>
     <string name="sensor_high">Alta</string>
+    <string name="on_attach">Se ha conectado un dispositivo</string>
+    <string name="on_detach">Se ha desconectado el dispositivo</string>
+
+    <string name="gps">¿Encender GPS?</string>
+    <string name="gps_detail">La aplicación necesita acceder a tu ubicación </string>
 
 </resources>

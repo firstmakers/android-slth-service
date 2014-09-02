@@ -18,6 +18,7 @@ import java.util.Iterator;
 
 import cl.tide.hidusb.client.BaseActivity;
 import cl.tide.hidusb.client.HomeActivity;
+import cl.tide.hidusb.service.utils.GeoLocation;
 import cl.tide.hidusb.service.utils.StorageManager;
 import cl.tide.hidusb.R;
 
@@ -55,6 +56,10 @@ public class HIDUSBService extends Service implements SLTHEventListener{
 
     public StorageManager mStorageManager;
 
+    public GeoLocation geoLocation;
+
+    public int clients = 0;
+
     /** SLTH vendor id and product id */
     private final int VID = (int)0x04D8;
     private final int PID = (int)0x003F;
@@ -78,6 +83,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
         super.onCreate();
         System.out.println(DEBUG_TAG + " created");
         nNotification = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
@@ -116,6 +122,16 @@ public class HIDUSBService extends Service implements SLTHEventListener{
             }
         }
         mStorageManager = new StorageManager(getApplicationContext());
+        geoLocation = new GeoLocation(getApplicationContext());
+
+        initializeLocation();
+    }
+
+    /** Initialize Geolocation**/
+    private void initializeLocation(){
+        if(!geoLocation.canGetLocation()){
+            geoLocation.showSettingsAlert();
+        }
     }
 
     @Override
@@ -141,7 +157,25 @@ public class HIDUSBService extends Service implements SLTHEventListener{
     @Override
     public IBinder onBind(Intent intent)  {
         System.out.println("onBind");
+        clients++;
         return mBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        clients--;
+        close();
+        return super.onUnbind(intent);
+    }
+
+    /**Close the service when it is inactive */
+    private void close(){
+        if(clients == 0 && !isMonitoring()){
+            System.out.print("Closing Service");
+            geoLocation.stopUsingGPS();
+            stopForeground(true);
+            stopSelf();
+        }
     }
 
     /** Find connected devices  for Vendor & Product IDs*/
@@ -174,9 +208,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
         /** Get Explicit permission */
         if(!usbManager.hasPermission(device)){
             System.out.println(DEBUG_TAG + ": getting explicit permission");
-            PendingIntent mPermissionIntent = PendingIntent.getBroadcast(this
-                    ,0, new Intent(ACTION_USB_PERMISSION), 0);
-            usbManager.requestPermission(device, mPermissionIntent);
+            getUsbPermission(device);
         }
         else{
             System.out.println(DEBUG_TAG + ": connecting to slth device ");
@@ -184,6 +216,13 @@ public class HIDUSBService extends Service implements SLTHEventListener{
             mSLTH.setEventListener(this);
         }
 
+    }
+
+    private void getUsbPermission(UsbDevice device){
+        PendingIntent mPermissionIntent = PendingIntent.getBroadcast(this
+                ,0, new Intent(ACTION_USB_PERMISSION), 0);
+
+        usbManager.requestPermission(device, mPermissionIntent);
     }
 
     /***/
@@ -197,7 +236,15 @@ public class HIDUSBService extends Service implements SLTHEventListener{
 
         if(mSLTH != null){
             mSLTH.startMonitor(interval, samples);
-            mStorageManager.createSample(interval,samples);
+            mStorageManager.createSample(interval ,samples);
+            if(geoLocation.canGetLocation()){
+                mStorageManager.updateLocation(
+                         geoLocation.getLatitude(),
+                         geoLocation.getLongitude());
+            }
+            else{
+                geoLocation.showSettingsAlert();
+            }
 
         }else {
             System.out.println("Not access to device");
@@ -253,6 +300,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
         mBuilder.setContentText(getString(R.string.stop_monitoring));
         showNotification();
         sendBroadcast(new Intent().setAction(ACTION_SAMPLE_STOP));
+        close();
     }
 
     @Override
@@ -290,6 +338,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
                         }
                     } else {
                         System.out.println("Permission denied for device " + device.getDeviceName());
+                        getUsbPermission(device);
                     }
                 }
             }else if(UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)){

@@ -34,6 +34,17 @@ public class SLTH implements Runnable{
     public final static byte  CMD_L = (byte) 0x83 ;
     public final static byte  CMD_H = (byte) 0x86 ;
 
+    public double avrTemp = 0;
+    public double avrLight = 0;
+    public int avrhum = 0;
+    public double minTemp =0;
+    public double maxTemp =0;
+    public double maxLight =0;
+    public double maxHum =0;
+    public double minHum = 0;
+    private int remaining = 0;
+
+
     /** Constructor **/
     public SLTH(UsbDevice device, UsbManager usbManager){
         this.mDevice = device;
@@ -44,10 +55,8 @@ public class SLTH implements Runnable{
         if(usbDeviceConnection == null)
             return;
         if(usbDeviceConnection.claimInterface(usbInterface,true)){
-
             usbEndpointIN = usbInterface.getEndpoint(0);
             usbEndpointOUT = usbInterface.getEndpoint(1);
-
         }else{
             usbDeviceConnection.close();
         }
@@ -166,6 +175,7 @@ public class SLTH implements Runnable{
 
         long timeStart = 0;
         long elapsedTime = 0;
+        remaining = samples;
 
         while (!thread.isInterrupted()) {
 
@@ -191,8 +201,8 @@ public class SLTH implements Runnable{
             } else {
                 System.out.println("unable to queue the out command ");
             }
-            this.samples--;
-            if(samples == 0)
+            remaining --;
+            if(remaining == 0)
                 stopMonitor();
             elapsedTime =  System.currentTimeMillis() - timeStart;
             //System.out.println(":::::::::: Elapsed Time ::::::::: " + elapsedTime);
