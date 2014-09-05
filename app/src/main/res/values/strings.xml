@@ -54,8 +54,21 @@
     <string name="sensor_high">Alta</string>
     <string name="on_attach">Se ha conectado un dispositivo</string>
     <string name="on_detach">Se ha desconectado el dispositivo</string>
-
     <string name="gps">¿Encender GPS?</string>
     <string name="gps_detail">La aplicación necesita acceder a tu ubicación </string>
+    <string name="file_selected">Archivos Seleccionados</string>
+    <string name="item_selected">1 Archivo seleccionado</string>
+    <string name="many_items_selected">Archivos seleccionados</string>
+    <string name="title_share_mail">Enviar por...</string>
+    <string name="txt_file">Directorio vacío</string>
+    <string name="delete">"Borrar"</string>
+    <string name="share">"Compartir"</string>
+    <string name="title_datamanager">Datos Almacenados</string>
+    <string name="title_activity_detail_sample">DetailSampleActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="measure_temp">ºC</string>
+    <string name="measure_light">lux</string>
+    <string name="measure_hum">hs</string>
+    <string name="hour">Hora</string>
 
 </resources>

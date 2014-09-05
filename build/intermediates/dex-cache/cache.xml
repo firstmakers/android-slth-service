@@ -20,6 +20,12 @@
         revision="19.1.0"
         sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
     <item
+        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-7774c584ef3030854295a82d929d8aabe95634a0.jar"
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3dfdf1db5ce5ea2999a5dcde8c8e650b02660059"/>
+    <item
         dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/com.mobandme.ada_v2.4.1-5ce721a961bc2bc1e803d71e3ba233fee049bbd1.jar"
         jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/com.mobandme.ada_v2.4.1.jar"
         jumboMode="false"

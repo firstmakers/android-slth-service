@@ -8,6 +8,7 @@ import com.mobandme.ada.ObjectSet;
 import com.mobandme.ada.exceptions.AdaFrameworkException;
 
 import java.io.File;
+import java.util.List;
 
 import cl.tide.hidusb.service.storage.sqlite.AppDataLogger;
 import cl.tide.hidusb.service.storage.sqlite.Data;
@@ -49,6 +50,7 @@ public class StorageManager {
             }
         }
     }
+
 
     /**Create a new object of Samples*/
     public void createSample(int i, int m){
@@ -102,11 +104,12 @@ public class StorageManager {
         }
     }
 
-    public ObjectSet<Samples> getAllSamples(){
+    public List<Samples> getAllSamples(){
 
         try {
-            dataLogger.samplesDao.fill("date");
-            return dataLogger.getSamplesDao();
+            dataLogger.samplesDao.fill();
+            System.out.println(" loading " + dataLogger.samplesDao.size()+" sample(s)");
+            return (List<Samples>) dataLogger.samplesDao;
         } catch (AdaFrameworkException e) {
             e.printStackTrace();
         }

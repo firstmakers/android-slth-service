@@ -7,6 +7,7 @@ import com.mobandme.ada.ObjectContext;
 import com.mobandme.ada.ObjectSet;
 import com.mobandme.ada.exceptions.AdaFrameworkException;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**

@@ -39,17 +39,10 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     public boolean bounded;
     public boolean device = false;
     public static boolean MONITORING = false;
-
-
     protected NavigationDrawerFragment mNavigationDrawerFragment;
-
     public SensorFragment sensorView;
     public ChartFragment chartView;
     public StatisticsFragment statisticsView;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
     private String[] titles;
 
@@ -65,12 +58,14 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
             mService.startForeground(mService.NOTIFICATION, mService.getNotification());
             device = mService.isDeviceConnected();
             MONITORING = mService.isMonitoring();
+            onBindService();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             bounded = false;
             device = false;
+            onUnBindService();
         }
     };
 
@@ -94,6 +89,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
             unbindService(mConnection);
         }
     }
+
     public void startUSBService(){
         startService(mIntentService);
     }
@@ -170,12 +166,6 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
         super.onDestroy();
     }
 
-    protected void onNewSample(double t, double l, int h){
-    }
-    protected  void onConnect(){
-    }
-    protected  void onDisconnect(){
-    }
 
     private final BroadcastReceiver slthEvents = new BroadcastReceiver() {
         @Override
@@ -209,8 +199,6 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
         }
     };
 
-    protected abstract void onStopMonitor();
-
 
 
     // Navegación barra lateral
@@ -218,37 +206,44 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         switch (position){
+
             case 0:
                 sensorView = SensorFragment.newInstance(position, false);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, sensorView)
                         .commit();
+
                 break;
             case 1://graficos
                 chartView = ChartFragment.newInstance(position);
-                fragmentManager.beginTransaction()
+                fragmentManager.beginTransaction().addToBackStack("chartview")
                         .replace(R.id.container, chartView)
                         .commit();
                     chartView.setSample(getLastSample());
                 break;
             case 2://estadisticas
                 statisticsView = StatisticsFragment.newInstance(position);
-                fragmentManager.beginTransaction()
+                fragmentManager.beginTransaction().addToBackStack("statisticsview")
                         .replace(R.id.container, statisticsView)
                         .commit();
                 break;
             case 3://datosAlmacenados
+                startActivity(new Intent(this, DataManagerActivity.class));
                 break;
             case 4: //config
                 startActivity(new Intent(this ,SettingsActivity.class));
                 break;
             case 5:
-                fragmentManager.beginTransaction()
+                fragmentManager.beginTransaction().addToBackStack("aboutview")
                         .replace(R.id.container, AboutFragment.newInstance(position)).commit();
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
     }
 
@@ -271,7 +266,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     // creación del menu del actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (mNavigationDrawerFragment!= null && !mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
@@ -301,4 +296,13 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /** Protected Methods*/
+    protected void onNewSample(double t, double l, int h){}
+    protected void onConnect(){}
+    protected void onDisconnect(){}
+    protected void onBindService(){}
+    protected void onUnBindService(){}
+    protected void onStopMonitor(){}
+    /**End protected methods*/
 }

@@ -30,4 +30,7 @@
     <color name="progress_gray">#FFD8D8D8</color>
     <color name="progress_gray_dark">#FF383838</color>
 
+    <color name="info">#193770</color>
+    <color name="footer">#039ebc</color>
+
 </resources>

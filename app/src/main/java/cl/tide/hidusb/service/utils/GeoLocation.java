@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.WindowManager;
 
 import cl.tide.hidusb.R;
 
@@ -140,6 +141,7 @@ public class GeoLocation implements LocationListener{
      * Function to show settings alert dialog
      * */
     public void showSettingsAlert(){
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
         // Setting Dialog Title
         alertDialog.setTitle( mContext.getString(R.string.gps));
@@ -149,6 +151,7 @@ public class GeoLocation implements LocationListener{
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
         });
@@ -159,9 +162,9 @@ public class GeoLocation implements LocationListener{
                 dialog.cancel();
             }
         });
-
-        // Showing Alert Message
-        alertDialog.show();
+        AlertDialog alert = alertDialog.create();
+        alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        alert.show();
     }
     /**
      * Stop using GPS listener
@@ -177,7 +180,6 @@ public class GeoLocation implements LocationListener{
         this.location = location;
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
-
     }
 
     @Override
