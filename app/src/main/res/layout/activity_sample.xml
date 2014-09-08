@@ -54,7 +54,7 @@
 
         </TableLayout>
     <ScrollView
-        android:layout_width="285dp"
+        android:layout_width="280dp"
         android:layout_height="570dp"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@drawable/title_sensor_bg"
@@ -89,7 +89,50 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/header" />
+        android:layout_toRightOf="@+id/header" >
+
+        <RelativeLayout
+            android:id="@+id/container_title"
+            android:background="@drawable/title_sensor_bg_temp"
+            android:layout_width="fill_parent"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/sensor_name_temp"
+                android:id="@+id/sensor_name"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+
+
+        </RelativeLayout>
+            <com.androidplot.xy.XYPlot
+                android:layout_width="match_parent"
+                android:id="@+id/chartTemp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/container_title"
+                androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"
+                androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/domain_label_font_size"
+                androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/range_label_font_size"
+                androidPlot.graphWidget.marginTop="10dp"
+                androidPlot.graphWidget.marginLeft="15dp"
+                androidPlot.graphWidget.marginBottom="15dp"
+                androidPlot.graphWidget.marginRight="10dp"
+                androidPlot.graphWidget.rangeLabelPaint.textSize="@dimen/range_tick_label_font_size"
+                androidPlot.graphWidget.rangeOriginLabelPaint.textSize="@dimen/range_tick_label_font_size"
+                androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/domain_tick_label_font_size"
+                androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/domain_tick_label_font_size"/>
+        </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -104,6 +147,46 @@
         android:layout_marginTop="10dp"
         android:layout_alignLeft="@+id/relativeLayout"
         android:layout_alignStart="@+id/relativeLayout">
+        <RelativeLayout
+            android:id="@+id/container_title_l"
+            android:background="@drawable/title_sensor_bg_light"
+            android:layout_width="fill_parent"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/sensor_name_light"
+                android:id="@+id/sensor_name_l"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+
+            <com.androidplot.xy.XYPlot
+            android:layout_width="match_parent"
+            android:id="@+id/chartLight"
+            android:layout_height="match_parent"
+                androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"
+                androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/domain_label_font_size"
+                androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/range_label_font_size"
+                androidPlot.graphWidget.marginTop="10dp"
+                androidPlot.graphWidget.marginLeft="25dp"
+                androidPlot.graphWidget.marginBottom="15dp"
+                androidPlot.graphWidget.marginRight="10dp"
+                androidPlot.graphWidget.rangeLabelPaint.textSize="@dimen/range_tick_label_font_size"
+                androidPlot.graphWidget.rangeOriginLabelPaint.textSize="@dimen/range_tick_label_font_size"
+                androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/domain_tick_label_font_size"
+                androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/domain_tick_label_font_size"
+
+                android:layout_below="@+id/container_title_l" />
 
     </RelativeLayout>
 
@@ -117,7 +200,48 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:id="@+id/relativeLayout3"/>
+        android:id="@+id/relativeLayout3">
+        <RelativeLayout
+            android:id="@+id/container_title_h"
+            android:background="@drawable/title_sensor_bg"
+            android:layout_width="fill_parent"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/sensor_name_hum"
+                android:id="@+id/sensor_name_h"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+
+            <com.androidplot.xy.XYPlot
+            android:layout_width="match_parent"
+            android:id="@+id/chartHum"
+            android:layout_height="match_parent"
+                androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"
+                androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/domain_label_font_size"
+                androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/range_label_font_size"
+                androidPlot.graphWidget.marginTop="10dp"
+                androidPlot.graphWidget.marginLeft="15dp"
+                androidPlot.graphWidget.marginBottom="15dp"
+                androidPlot.graphWidget.marginRight="10dp"
+                androidPlot.graphWidget.rangeLabelPaint.textSize="@dimen/range_tick_label_font_size"
+                androidPlot.graphWidget.rangeOriginLabelPaint.textSize="@dimen/range_tick_label_font_size"
+                androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/domain_tick_label_font_size"
+                androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/domain_tick_label_font_size"
+
+                android:layout_below="@+id/container_title_h" />
+        </RelativeLayout>
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
