@@ -80,7 +80,7 @@
             android:name=".client.DetailSampleActivity"
             android:screenOrientation="portrait"
             android:parentActivityName=".client.DataManagerActivity"
-            android:label="@string/title_activity_detail_sample" >
+            android:label="@string/title_datamanager" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".client.DataManagerActivity" />

@@ -148,7 +148,7 @@ public class GeoLocation implements LocationListener{
         // Setting Dialog Message
         alertDialog.setMessage(mContext.getString(R.string.gps_detail));
         // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(mContext.getString(R.string.gps_settings), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -157,7 +157,7 @@ public class GeoLocation implements LocationListener{
         });
 
         // on pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(mContext.getString(R.string.gps_settings_cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }

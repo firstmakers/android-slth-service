@@ -237,12 +237,7 @@ public class HIDUSBService extends Service implements SLTHEventListener{
         if(mSLTH != null){
             mSLTH.startMonitor(interval, samples);
             mStorageManager.createSample(interval ,samples);
-            if(geoLocation.canGetLocation()){
-                mStorageManager.updateLocation(
-                         geoLocation.getLatitude(),
-                         geoLocation.getLongitude());
-            }
-            else{
+            if(!geoLocation.canGetLocation()){
                 geoLocation.showSettingsAlert();
             }
 
@@ -253,6 +248,9 @@ public class HIDUSBService extends Service implements SLTHEventListener{
 
     public synchronized void stopMonitoring(){
         if(mSLTH != null){
+            mStorageManager.updateLocation(
+                    geoLocation.getLatitude(),
+                    geoLocation.getLongitude());
             mSLTH.stopMonitor();
             //mStorageManager.printData();
         }

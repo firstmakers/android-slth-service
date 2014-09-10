@@ -1,5 +1,8 @@
 package cl.tide.hidusb.service.storage.sqlite;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.mobandme.ada.Entity;
 import com.mobandme.ada.annotations.Table;
 import com.mobandme.ada.annotations.TableField;
@@ -40,6 +43,15 @@ public class Samples extends Entity {
     @TableField(name = "datos",datatype = DATATYPE_ENTITY)
     private List<Data>  data;
 
+    private boolean selected;
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    public boolean isSelected(){
+        return selected;
+    }
+
     /**
     * *Constructors
     * */
@@ -53,6 +65,7 @@ public class Samples extends Entity {
         this.interval = interval;
         this.number = samples;
         data = new ArrayList<Data>();
+        selected = false;
     }
 
     /**
@@ -115,4 +128,5 @@ public class Samples extends Entity {
     public void setData(List data) {
         this.data = data;
     }
+
 }

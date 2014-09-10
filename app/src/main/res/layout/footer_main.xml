@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="70dp"
+    android:background="@drawable/header_hum">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:paddingRight="10dp"
+        android:id="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/ic_action_time_dark"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/ind_samples"
+
+            android:layout_toEndOf="@+id/imageView2"
+            android:textColor="@color/white"
+            android:typeface="normal"
+            android:textStyle="bold|italic"
+            android:layout_above="@+id/imageView"
+            android:layout_toRightOf="@+id/imageView2" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/imageView2"
+            android:src="@drawable/ic_action_settings_dark"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/ind_interval"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignLeft="@+id/ind_samples"
+            android:layout_alignStart="@+id/ind_samples"
+            android:layout_marginTop="3dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/linearLayout"
+        android:id="@+id/relativeLayout">
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -104,6 +104,17 @@ public class StorageManager {
         }
     }
 
+    public void delete(Samples sample){
+
+        try {
+            dataLogger.samplesDao.remove(sample);
+            dataLogger.samplesDao.save();
+        } catch (AdaFrameworkException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public List<Samples> getAllSamples(){
 
         try {

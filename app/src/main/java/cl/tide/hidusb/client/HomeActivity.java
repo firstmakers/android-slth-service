@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cl.tide.hidusb.R;
@@ -18,10 +19,14 @@ import cl.tide.hidusb.client.util.NavigationDrawerFragment;
  * Created by eDelgado on 22-08-14.
  */
 
-public class HomeActivity extends BaseActivity implements SensorFragment.OnFragmentClickListener {
+public class HomeActivity extends BaseActivity implements SensorFragment.OnFragmentClickListener{
 
     Button btnStart;
 
+    /*TextView indInterval;
+    TextView indSample;
+    SharedPreferences sharedPreferences;
+    View footer;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,15 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        /*footer = View.inflate(this, R.layout.footer_main,null);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        indInterval = (TextView)findViewById(R.id.ind_interval);
+        indInterval.setText(sharedPreferences.getInt("pref_sample_interval",0)+ " "+getString(R.string.ind_interval));
+        indSample = (TextView)findViewById(R.id.ind_samples);
+        indSample.setText(sharedPreferences.getInt("pref_sample_number",0)+" "+ getString(R.string.ind_sample));*/
     }
 
     @Override
@@ -74,7 +88,8 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
 
     @Override
     protected void onStopMonitor() {
-        btnStart.setText(R.string.btn_start);
+        if(btnStart!= null)
+            btnStart.setText(R.string.btn_start);
     }
 
     @Override
@@ -94,4 +109,13 @@ public class HomeActivity extends BaseActivity implements SensorFragment.OnFragm
             Toast.makeText(this, getString(R.string.no_device), Toast.LENGTH_LONG).show();
         }
     }
+    /*
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+       if(key.equals("pref_sample_interval")){
+           indInterval.setText(sharedPreferences.getInt("pref_sample_interval",0)+ " "+getString(R.string.ind_interval));
+        } else if(key.equals("pref_sample_number")){
+           indSample.setText(sharedPreferences.getInt("pref_sample_number",0)+" "+ getString(R.string.ind_sample));
+        }
+    }*/
 }

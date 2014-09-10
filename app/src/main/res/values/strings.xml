@@ -14,7 +14,7 @@
     <string-array name="nav_string">
         <item>Sensores</item>
         <item>Gráficos</item>
-        <item>Estadísticas</item>
+        <!--item>Estadísticas</item-->
         <item>Datos Almacenados</item>
         <item>Configuración</item>
         <item>Acerca de...</item>
@@ -23,7 +23,7 @@
     <array name="nav_icon">
         <item>@drawable/ic_temperature_512</item>
         <item>@drawable/ic_pie_512</item>
-        <item>@drawable/ic_estadisticas</item>
+        <!--item>@drawable/ic_estadisticas</item-->
         <item>@drawable/ic_storage</item>
         <item>@drawable/ic_settings_512</item>
         <item>@drawable/ic_info_512</item>
@@ -64,11 +64,16 @@
     <string name="delete">"Borrar"</string>
     <string name="share">"Compartir"</string>
     <string name="title_datamanager">Datos Almacenados</string>
-    <string name="title_activity_detail_sample">DetailSampleActivity</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="measure_temp">ºC</string>
     <string name="measure_light">lux</string>
     <string name="measure_hum">hs</string>
     <string name="hour">Hora</string>
+    <string name="ind_sample">muestra(s)</string>
+    <string name="ind_interval">segundo(s)</string>
+    <string name="gps_settings">Configurar</string>
+    <string name="gps_settings_cancel">Cancelar</string>
+    <string name="action_delete">Eliminar</string>
 
 </resources>

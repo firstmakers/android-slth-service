@@ -5,7 +5,7 @@
     android:id="@+id/cell"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/cell_bg">
+    android:background="@drawable/sensor_bg_hum">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:typeface="normal"
-        android:textColor="@color/white"
+        android:textColor="@color/darkblue"
         android:id="@+id/cell_value"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"

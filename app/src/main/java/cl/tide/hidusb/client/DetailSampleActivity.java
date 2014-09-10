@@ -26,25 +26,29 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mobandme.ada.exceptions.AdaFrameworkException;
 
 import java.util.List;
 
 import cl.tide.hidusb.R;
+import cl.tide.hidusb.service.storage.sqlite.AppDataLogger;
 import cl.tide.hidusb.service.storage.sqlite.Data;
 import cl.tide.hidusb.service.storage.sqlite.Samples;
 
 public class DetailSampleActivity extends FragmentActivity {
+
     public static String ID_SAMPLE = "cl.tide.hidusb.IDSAMPLE";
     private long id = 0;
     private GoogleMap map;
     private static String TAG = "DETAIL SAMPLES";
-    public static Samples sample;
+    public  Samples sample;
     private TableLayout tbl;
     private TableRow newRow;
     private TextView date, temp, light, hum;
     private XYPlot chartTemp, chartLight, chartHum;
     private SimpleXYSeries tempSerie, lightSerie, humSerie;
     private int colorHum, colortemp, colorlight;
+    private AppDataLogger dataLogger;
 
 
     @Override
@@ -53,18 +57,36 @@ public class DetailSampleActivity extends FragmentActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_sample);
 
+        id = getIntent().getExtras().getLong(ID_SAMPLE);
+
         Log.i(TAG, "Sample id" + id);
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap();
-
-        chartTemp = (XYPlot) findViewById(R.id.chartTemp);
-        chartHum = (XYPlot) findViewById(R.id.chartHum);
-        chartLight = (XYPlot) findViewById(R.id.chartLight);
-
     }
 
     private void loadView() {
-        setMarker(sample.getLatitude(), sample.getLongitude());
+        double lat = 0;
+        double lon = 0;
+        try{
+            lat = sample.getLatitude();
+            lon = sample.getLongitude();
+            if(lat!= 0 && lon !=0){
+                setMarker(lat,lon);
+            }
+
+        }catch (NullPointerException e){
+            e.toString();
+            Log.i("DetailSample", " Location null " +e);
+        }
+
+        try {
+            dataLogger = new AppDataLogger(this);
+            sample = dataLogger.getSamplesDao().getElementByID(id);
+
+        } catch (AdaFrameworkException e) {
+            e.printStackTrace();
+            finish();
+        }
         //Async view
         new LoaderCharts().execute();
         new LoaderTableLayout().execute();
@@ -73,10 +95,25 @@ public class DetailSampleActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadView();
+    }
 
-        if (sample != null) {
-            loadView();
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        clear();
+    }
+    private void clear(){
+        dataLogger = null;
+        tbl = null;
+        chartHum = null;
+        chartTemp = null;
+        chartLight = null;
+        tempSerie = null;
+        lightSerie = null;
+        humSerie = null;
+        newRow = null;
+        System.gc();
     }
 
     @Override
@@ -96,9 +133,6 @@ public class DetailSampleActivity extends FragmentActivity {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -113,35 +147,31 @@ public class DetailSampleActivity extends FragmentActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    LayoutInflater inflater = (LayoutInflater) getSystemService
-                            (Context.LAYOUT_INFLATER_SERVICE);
 
-                    tbl = (TableLayout) findViewById(R.id.data_table);
-                    TableLayout header = (TableLayout) findViewById(R.id.header);
-                    TableRow row = (TableRow) header.getChildAt(0);
+            LayoutInflater inflater = (LayoutInflater) getSystemService
+                    (Context.LAYOUT_INFLATER_SERVICE);
 
-                    List<Data> data = sample.getData();
+            tbl = (TableLayout) findViewById(R.id.data_table);
+            /*TableLayout header = (TableLayout) findViewById(R.id.header);
+            TableRow row = (TableRow) header.getChildAt(0);*/
 
-                    for (Data d : data) {
-                        newRow = (TableRow) inflater.inflate(R.layout.table_row, null);
-                        date = (TextView) newRow.findViewById(R.id.cell_date_value);
-                        temp = (TextView) newRow.findViewById(R.id.cell_temp_value);
-                        light = (TextView) newRow.findViewById(R.id.cell_light_value);
-                        hum = (TextView) newRow.findViewById(R.id.cell_hum_value);
+            List<Data> data = sample.getData();
 
-                        date.setText(d.getDatetime().substring(10));
-                        temp.setText(d.getTemperature() + "");
-                        light.setText(d.getLight() + "");
-                        hum.setText(d.getHumidity() + "");
+            for (Data d : data) {
+                newRow = (TableRow) inflater.inflate(R.layout.table_row, null);
+                date = (TextView) newRow.findViewById(R.id.cell_date_value);
+                temp = (TextView) newRow.findViewById(R.id.cell_temp_value);
+                light = (TextView) newRow.findViewById(R.id.cell_light_value);
+                hum = (TextView) newRow.findViewById(R.id.cell_hum_value);
 
-                        publishProgress(newRow);
-                    }
-                }
+                date.setText(d.getDatetime().substring(10));
+                temp.setText(d.getTemperature() + "");
+                light.setText(d.getLight() + "");
+                hum.setText(d.getHumidity() + "");
 
-            });
+                publishProgress(newRow);
+            }
+
 
             return null;
         }
@@ -157,25 +187,39 @@ public class DetailSampleActivity extends FragmentActivity {
     private class LoaderCharts extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    configCharts();
 
-                    List<Data> data = sample.getData();
+            configCharts();
+            List<Data> data = sample.getData();
+            double actualTemp = 0;
+            double actualLight = 0;
+            double maxTemp = 0;
+            double minTemp = 200;
+            double minLight = 65800;
+            double maxLight = 0;
+            Log.i("CHARTVIEW ", " datasource lenght " + data.size());
+            for (Data d : data) {
+                actualTemp = d.getTemperature();
+                actualLight = d.getLight();
+                tempSerie.addLast(null, actualTemp);
+                lightSerie.addLast(null, actualLight);
+                humSerie.addLast(null, d.getHumidity());
+                if(actualTemp > maxTemp)
+                    maxTemp = actualTemp;
+                if(actualTemp < minTemp)
+                    minTemp = actualTemp;
+                if(actualLight > maxLight)
+                    maxLight = actualLight;
+                if(actualLight < minLight)
+                    minLight = actualLight;
+                publishProgress();
+            }
+            settingYSerie(chartTemp,minTemp,maxTemp);
+            settingYSerie(chartLight,minLight,maxLight);
+          
 
-                    Log.i("CHARTVIEW ", " datasource lenght " + data.size());
-                    for (Data d : data) {
-                        tempSerie.addLast(null, d.getTemperature());
-                        lightSerie.addLast(null, d.getLight());
-                        humSerie.addLast(null, d.getHumidity());
-                        publishProgress();
-                    }
-
-                }
-            });
             return null;
         }
+
 
         @Override
         protected void onProgressUpdate(Void... values) {
@@ -185,9 +229,19 @@ public class DetailSampleActivity extends FragmentActivity {
             chartHum.redraw();
         }
     }
+    private void settingYSerie(XYPlot chart, double min, double max){
+        double i = (max-min)/5;
+        if( i<1)
+            i = 1;
+        chart.setRangeBoundaries((min-1),(max+1),BoundaryMode.FIXED);
+        chart.setRangeStep(XYStepMode.INCREMENT_BY_VAL, i);
+    }
 
     private void configCharts() {
 
+        chartTemp = (XYPlot) findViewById(R.id.chartTemp);
+        chartHum = (XYPlot) findViewById(R.id.chartHum);
+        chartLight = (XYPlot) findViewById(R.id.chartLight);
         final Resources resources = getResources();
         colorHum = resources.getColor(R.color.darkblue);
         colorlight = resources.getColor(R.color.darkorange);
@@ -257,19 +311,21 @@ public class DetailSampleActivity extends FragmentActivity {
 
     private void setPlotSteps() {
         int HISTORY_SIZE = sample.getData().size();
+        if(HISTORY_SIZE > 5)
+            HISTORY_SIZE = HISTORY_SIZE/5;
         //chartTemp.setRangeBoundaries(-10,150,BoundaryMode.FIXED);
         //chartTemp.setRangeStep(XYStepMode.SUBDIVIDE, 2);
-        chartTemp.setDomainStep(XYStepMode.INCREMENT_BY_VAL, HISTORY_SIZE / 5);
+        chartTemp.setDomainStep(XYStepMode.INCREMENT_BY_VAL, HISTORY_SIZE);
         chartTemp.setDomainBoundaries(0, HISTORY_SIZE, BoundaryMode.FIXED);
 
         //chartLight.setRangeBoundaries(0,10000,BoundaryMode.GROW);
         //chartLight.setRangeStep(XYStepMode.INCREMENT_BY_VAL, 1000);
-        chartLight.setDomainStep(XYStepMode.INCREMENT_BY_VAL, HISTORY_SIZE / 5);
+        chartLight.setDomainStep(XYStepMode.INCREMENT_BY_VAL, HISTORY_SIZE);
         chartLight.setDomainBoundaries(0, HISTORY_SIZE, BoundaryMode.FIXED);
 
         chartHum.setRangeBoundaries(0, 10, BoundaryMode.FIXED);
         chartHum.setRangeStep(XYStepMode.INCREMENT_BY_VAL, 2);
-        chartHum.setDomainStep(XYStepMode.INCREMENT_BY_VAL, HISTORY_SIZE / 5);
+        chartHum.setDomainStep(XYStepMode.INCREMENT_BY_VAL, HISTORY_SIZE);
         chartHum.setDomainBoundaries(0, HISTORY_SIZE, BoundaryMode.FIXED);
     }
 }

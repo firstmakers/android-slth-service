@@ -1,5 +1,8 @@
 package cl.tide.hidusb.service.storage.sqlite;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.mobandme.ada.Entity;
 import com.mobandme.ada.annotations.Table;
 import com.mobandme.ada.annotations.TableField;
@@ -75,4 +78,5 @@ public class Data extends Entity {
     public void setHumidity(double humidity) {
         this.humidity = humidity;
     }
+
 }

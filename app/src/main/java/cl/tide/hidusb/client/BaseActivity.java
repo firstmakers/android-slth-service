@@ -222,19 +222,14 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
                         .commit();
                     chartView.setSample(getLastSample());
                 break;
-            case 2://estadisticas
-                statisticsView = StatisticsFragment.newInstance(position);
-                fragmentManager.beginTransaction().addToBackStack("statisticsview")
-                        .replace(R.id.container, statisticsView)
-                        .commit();
-                break;
-            case 3://datosAlmacenados
+
+            case 2://datosAlmacenados
                 startActivity(new Intent(this, DataManagerActivity.class));
                 break;
-            case 4: //config
+            case 3: //config
                 startActivity(new Intent(this ,SettingsActivity.class));
                 break;
-            case 5:
+            case 4:
                 fragmentManager.beginTransaction().addToBackStack("aboutview")
                         .replace(R.id.container, AboutFragment.newInstance(position)).commit();
 
@@ -287,9 +282,6 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         if (item.getItemId() == R.id.action_example) {
             sensorView.resetView();
             return true;

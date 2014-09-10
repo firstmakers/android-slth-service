@@ -31,6 +31,7 @@ public class DataManagerActivity extends BaseActivity {
     public String email = "";
     private TextView txt;
     private static String TAG = "DATA_MANAGER";
+    public static String DATACONTEXT ="cl.tide.hidusb.parcelable.data";
     private StorageManager dataLogger;
 
     @Override
@@ -61,10 +62,11 @@ public class DataManagerActivity extends BaseActivity {
         new DataLoader().execute();
     }
 
+    /***/
     private void loadSample(int position){
 
-        DetailSampleActivity.sample = dataBase.get(position);
         Intent intent = new Intent(this, DetailSampleActivity.class);
+        intent.putExtra(DetailSampleActivity.ID_SAMPLE, dataBase.get(position).getID());
         startActivity(intent);
     }
 
@@ -130,10 +132,10 @@ public class DataManagerActivity extends BaseActivity {
 
         @Override
         public void onItemCheckedStateChanged(android.view.ActionMode mode, int i, long l, boolean b) {
-               /* int selectCount = gridView.getCheckedItemCount();
+               int selectCount = gridView.getCheckedItemCount();
                 Log.d("ActionMenu", " count " + selectCount +" position " + i);
-                myList.get(i).setSelected(b);
-                Log.d("ActionMenu", " selected " + myList.get(i).getFile());
+                dataBase.get(i).setSelected(b);
+                Log.d("ActionMenu", " selected " + dataBase.get(i).getID());
                 switch (selectCount) {
                     case 1:
                         mode.setSubtitle(R.string.item_selected);
@@ -142,16 +144,14 @@ public class DataManagerActivity extends BaseActivity {
                         String string = getString(R.string.many_items_selected);
                         mode.setSubtitle("" + selectCount + " "+ string);
                         break;
-                }*/
+                }
         }
 
         @Override
         public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
             mode.setTitle(R.string.file_selected);
             mode.setSubtitle(R.string.item_selected);
-               /* mode.getMenuInflater().inflate(R.menu.files, menu);
-                */
-
+            mode.getMenuInflater().inflate(R.menu.files, menu);
 
             return true;
         }
@@ -165,32 +165,30 @@ public class DataManagerActivity extends BaseActivity {
         public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
             int id = item.getItemId();
 
-               /* switch (id) {
+                 switch (id) {
                     case R.id.action_delete: {
-                        Log.d("FileManager "," large of list " +myList.size());
-                        ArrayList<FileStorage> tempDelete = new ArrayList<FileStorage>();
-                        //preparando archivos seleccionados para borrar
-                        for(FileStorage file : myList){
+                        List<Samples> deleteItems = new ArrayList<Samples>();
+                        for(Samples file : dataBase){
                             if(file.isSelected()){
-                                tempDelete.add(file);
+                                deleteItems.add(file);
+
                             }
                         }
-                        for(FileStorage delete: tempDelete){
-                            data.remove(delete.getFile());
-                            String root_sd = Environment.getExternalStorageDirectory().toString();
-                            file = new File(root_sd + ExportToExcel.ROOT_DIRECTORY + delete.getFile());
-                            file.delete();
-                            Log.d("FileManager "," delete file " + delete.getFile());
+                        for(Samples delete :deleteItems){
+                            dataLogger.delete(delete);
+                            data.remove(delete.getDate());
+                            Log.i(TAG,"delete "+ delete.getID());
                         }
                         adapter.notifyDataSetChanged();
                         if(data.size() == 0){
                             txt.setVisibility(View.VISIBLE);
                         }
-
+                        //update new database items
+                        dataBase = dataLogger.getAllSamples();
                         mode.finish();
                         break;
                     }
-                    case R.id.action_share: {
+                     /*case R.id.action_share: {
 
                         final Intent ei = new Intent(Intent.ACTION_SEND_MULTIPLE);
                         ei.setType("plain/text");
@@ -214,10 +212,10 @@ public class DataManagerActivity extends BaseActivity {
                         startActivityForResult(Intent.createChooser(ei, title), 12345);
 
                         break;
-                    }
+                    }*/
                     default:
                         return false;
-                }*/
+                }
             return false;
         }
 
