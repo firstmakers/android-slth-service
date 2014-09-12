@@ -9,24 +9,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sensor_bg_temp"
-    android:padding="6dp">
+    android:padding="10dp">
 
     <RelativeLayout
         android:id="@+id/container_title"
         android:background="@drawable/title_sensor_bg_temp"
         android:layout_width="fill_parent"
-        android:layout_height="36dp"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="0dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="6dp">
+        android:layout_marginTop="0dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/sensor_name_temp"
             android:id="@+id/sensor_name"
             android:singleLine="true"
@@ -38,15 +37,17 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="70dp"
-        android:layout_below="@+id/container_title"
-        android:layout_height="70dp"
-        android:id="@+id/relativeLayout3">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_alignTop="@+id/relativeLayout"
+        android:layout_toStartOf="@+id/relativeLayout"
+        android:layout_toLeftOf="@+id/relativeLayout">
 
         <com.triggertrap.seekarc.SeekArc
             android:id="@+id/seekbar_temp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@drawable/button_detach"
             android:padding="20dp"
             seekarc:max="100"
@@ -65,8 +66,8 @@
              />
 
         <TextView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/temperature_status_txt"
             android:editable="false"
@@ -78,15 +79,15 @@
     </RelativeLayout>
 
     <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-        android:background="@drawable/sensor_bg_temp"
-        android:id="@+id/relativeLayout"
-        android:layout_below="@+id/container_title"
-        android:layout_toRightOf="@+id/relativeLayout3"
-        android:layout_toEndOf="@+id/relativeLayout3"
-        android:layout_marginLeft="6dp"
-        android:padding="6dp">
+            android:layout_below="@+id/container_title"
+            android:layout_marginTop="4dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/sensor_bg_temp"
+            android:padding="10dp"
+            android:id="@+id/relativeLayout">
 
 
             <TextView
@@ -98,6 +99,7 @@
                 android:layout_above="@+id/temp_decimal"
                 android:layout_alignRight="@+id/temp_decimal"
                 android:layout_alignEnd="@+id/temp_decimal"
+                android:textSize="20dp"
                 android:textColor="@color/darkred" />
 
             <TextView
@@ -107,9 +109,9 @@
                 android:text="@string/sensor_value_decimal"
                 android:id="@+id/temp_decimal"
                 android:maxLength="2"
-                android:textSize="20dp"
+                android:textSize="30dp"
 
-                android:layout_marginRight="6dp"
+                android:layout_marginRight="14dp"
                 android:layout_alignBottom="@+id/temp_value"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
@@ -123,7 +125,7 @@
                 android:text="@string/sensor_value"
                 android:textColor="@color/white"
                 android:id="@+id/temp_value"
-                android:textSize="50dp"
+                android:textSize="70dp"
                 android:textIsSelectable="false"
                 android:numeric="integer"
                 android:singleLine="true"
@@ -131,9 +133,10 @@
                 android:layout_toLeftOf="@+id/temp_decimal" />
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:id="@+id/sensor_icon"
+                android:layout_marginLeft="8dp"
                 android:src="@drawable/ic_temperature"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />

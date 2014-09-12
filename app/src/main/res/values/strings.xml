@@ -75,5 +75,8 @@
     <string name="gps_settings">Configurar</string>
     <string name="gps_settings_cancel">Cancelar</string>
     <string name="action_delete">Eliminar</string>
+    <string name="about_developed">Desarrollado por TIDE S.A.</string>
+    <string name="about_year">2014</string>
+    <string name="about_btn">Visitar Sitio Web</string>
 
 </resources>

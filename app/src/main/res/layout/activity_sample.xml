@@ -4,262 +4,230 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableLayout
-        android:layout_height="wrap_content"
-        android:stretchColumns="0,1,2,3"
-        android:id="@+id/header"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="280dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="6dp"
+            android:id="@+id/relativeLayout4">
 
-        <TableRow android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <TableLayout
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1,2,3"
+                android:id="@+id/header"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent">
+
+                <TableRow android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
-            <include
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                layout="@layout/header_date"
-                android:layout_weight="1"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <include
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                layout="@layout/header_temp"
-                android:layout_weight="1"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                 />
-            <include
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                layout="@layout/header_light"
-                android:layout_weight="1"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <include
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                layout="@layout/header_hum"
-                android:layout_weight="1"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-        </TableRow>
+                    <include
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/header_date"
+                        android:layout_weight="1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                    <include
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/header_temp"
+                        android:layout_weight="1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        />
+                    <include
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/header_light"
+                        android:layout_weight="1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                    <include
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/header_hum"
+                        android:layout_weight="1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                </TableRow>
 
-        </TableLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadeScrollbars="false"
+                    android:scrollbarThumbVertical="@drawable/title_sensor_bg"
+                    android:scrollbarSize="5dp"
+                    android:fillViewport="true"
+                    android:id="@+id/scrollView2"
+                    android:layout_below="@+id/header"
+                    android:layout_alignLeft="@+id/header"
+                    android:layout_alignStart="@+id/header">
+
+                    <TableLayout
+                        android:layout_marginRight="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/data_table"
+                        android:stretchColumns="0,1,2,3"
+                        >
+                    </TableLayout>
+                </ScrollView>
+
+            </TableLayout>
+        </RelativeLayout>
+
     <ScrollView
-        android:layout_width="280dp"
-        android:layout_height="570dp"
-        android:fadeScrollbars="false"
-        android:scrollbarThumbVertical="@drawable/title_sensor_bg"
-        android:scrollbarSize="5dp"
-        android:fillViewport="true"
-        android:id="@+id/scrollView2"
-        android:layout_below="@+id/header"
-        android:layout_alignLeft="@+id/header"
-        android:layout_alignStart="@+id/header">
-
-    <TableLayout
-        android:layout_marginRight="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/data_table"
-        android:stretchColumns="0,1,2,3"
-        >
-
-
-
-
-
-    </TableLayout>
-    </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="193dp"
-        android:layout_toEndOf="@+id/scrollView2"
-        android:id="@+id/relativeLayout"
-        android:background="@drawable/sensor_bg_temp"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/header" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="5dp"
+        android:layout_below="@+id/relativeLayout4"
+        android:id="@+id/scrollView3" >
 
         <RelativeLayout
-            android:id="@+id/container_title"
-            android:background="@drawable/title_sensor_bg_temp"
             android:layout_width="fill_parent"
-            android:layout_height="28dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/sensor_name_temp"
-                android:id="@+id/sensor_name"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true" />
+            android:layout_height="fill_parent">
 
 
-        </RelativeLayout>
-            <com.androidplot.xy.XYPlot
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/width_chart"
+                android:id="@+id/relativeLayout2"
+                android:layout_below="@+id/relativeLayout"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/sensor_bg_light"
+
+                android:layout_margin="6dp">
+                <RelativeLayout
+                    android:id="@+id/container_title_l"
+                    android:background="@drawable/title_sensor_bg_light"
+                    android:layout_width="fill_parent"
+                    android:layout_height="28dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/sensor_name_light"
+                        android:id="@+id/sensor_name_l"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true" />
+                </RelativeLayout>
+
+                <com.androidplot.xy.XYPlot
+                    android:layout_width="match_parent"
+                    android:id="@+id/chartLight"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/container_title_l" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/width_chart"
+                android:id="@+id/relativeLayout"
+                android:background="@drawable/sensor_bg_temp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp">
+
+                <RelativeLayout
+                    android:id="@+id/container_title"
+                    android:background="@drawable/title_sensor_bg_temp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="28dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/sensor_name_temp"
+                        android:id="@+id/sensor_name"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true" />
+
+
+                </RelativeLayout>
+                <com.androidplot.xy.XYPlot
+                    android:layout_width="match_parent"
+                    android:id="@+id/chartTemp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/container_title"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/width_chart"
+                android:layout_below="@+id/relativeLayout2"
+                android:background="@drawable/sensor_bg_hum"
+                android:id="@+id/relativeLayout3"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp">
+                <RelativeLayout
+                    android:id="@+id/container_title_h"
+                    android:background="@drawable/title_sensor_bg"
+                    android:layout_width="fill_parent"
+                    android:layout_height="28dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/sensor_name_hum"
+                        android:id="@+id/sensor_name_h"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true" />
+                </RelativeLayout>
+
+                <com.androidplot.xy.XYPlot
+                    android:layout_width="match_parent"
+                    android:id="@+id/chartHum"
+                    android:layout_height="match_parent"
+
+                    android:layout_below="@+id/container_title_h" />
+
+            </RelativeLayout>
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:id="@+id/chartTemp"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/container_title"
-                androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"
-                androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/domain_label_font_size"
-                androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/range_label_font_size"
-                androidPlot.graphWidget.marginTop="10dp"
-                androidPlot.graphWidget.marginLeft="15dp"
-                androidPlot.graphWidget.marginBottom="15dp"
-                androidPlot.graphWidget.marginRight="10dp"
-                androidPlot.graphWidget.rangeLabelPaint.textSize="@dimen/range_tick_label_font_size"
-                androidPlot.graphWidget.rangeOriginLabelPaint.textSize="@dimen/range_tick_label_font_size"
-                androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/domain_tick_label_font_size"
-                androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/domain_tick_label_font_size"/>
+                android:layout_height="200dp"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_below="@+id/relativeLayout3"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp" />
+
         </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="193dp"
-        android:id="@+id/relativeLayout2"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/sensor_bg_light"
-
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignLeft="@+id/relativeLayout"
-        android:layout_alignStart="@+id/relativeLayout">
-        <RelativeLayout
-            android:id="@+id/container_title_l"
-            android:background="@drawable/title_sensor_bg_light"
-            android:layout_width="fill_parent"
-            android:layout_height="28dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/sensor_name_light"
-                android:id="@+id/sensor_name_l"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true" />
-        </RelativeLayout>
-
-            <com.androidplot.xy.XYPlot
-            android:layout_width="match_parent"
-            android:id="@+id/chartLight"
-            android:layout_height="match_parent"
-                androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"
-                androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/domain_label_font_size"
-                androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/range_label_font_size"
-                androidPlot.graphWidget.marginTop="10dp"
-                androidPlot.graphWidget.marginLeft="25dp"
-                androidPlot.graphWidget.marginBottom="15dp"
-                androidPlot.graphWidget.marginRight="10dp"
-                androidPlot.graphWidget.rangeLabelPaint.textSize="@dimen/range_tick_label_font_size"
-                androidPlot.graphWidget.rangeOriginLabelPaint.textSize="@dimen/range_tick_label_font_size"
-                androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/domain_tick_label_font_size"
-                androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/domain_tick_label_font_size"
-
-                android:layout_below="@+id/container_title_l" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="193dp"
-        android:layout_below="@+id/relativeLayout2"
-        android:layout_alignLeft="@+id/relativeLayout2"
-        android:layout_alignStart="@+id/relativeLayout2"
-        android:background="@drawable/sensor_bg_hum"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/relativeLayout3">
-        <RelativeLayout
-            android:id="@+id/container_title_h"
-            android:background="@drawable/title_sensor_bg"
-            android:layout_width="fill_parent"
-            android:layout_height="28dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/sensor_name_hum"
-                android:id="@+id/sensor_name_h"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true" />
-        </RelativeLayout>
-
-            <com.androidplot.xy.XYPlot
-            android:layout_width="match_parent"
-            android:id="@+id/chartHum"
-            android:layout_height="match_parent"
-                androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"
-                androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/domain_label_font_size"
-                androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/range_label_font_size"
-                androidPlot.graphWidget.marginTop="10dp"
-                androidPlot.graphWidget.marginLeft="15dp"
-                androidPlot.graphWidget.marginBottom="15dp"
-                androidPlot.graphWidget.marginRight="10dp"
-                androidPlot.graphWidget.rangeLabelPaint.textSize="@dimen/range_tick_label_font_size"
-                androidPlot.graphWidget.rangeOriginLabelPaint.textSize="@dimen/range_tick_label_font_size"
-                androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/domain_tick_label_font_size"
-                androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/domain_tick_label_font_size"
-
-                android:layout_below="@+id/container_title_h" />
-        </RelativeLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/relativeLayout3"
-    android:id="@+id/relativeLayout4">
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentBottom="true" />
-    </RelativeLayout>
-
-
+    </ScrollView>
 
 
 </RelativeLayout>

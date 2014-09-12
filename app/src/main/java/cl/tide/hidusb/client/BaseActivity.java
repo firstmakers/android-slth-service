@@ -42,7 +42,6 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     protected NavigationDrawerFragment mNavigationDrawerFragment;
     public SensorFragment sensorView;
     public ChartFragment chartView;
-    public StatisticsFragment statisticsView;
     private CharSequence mTitle;
     private String[] titles;
 
@@ -278,14 +277,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
     // Selección del menú del actionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (item.getItemId() == R.id.action_example) {
-            sensorView.resetView();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

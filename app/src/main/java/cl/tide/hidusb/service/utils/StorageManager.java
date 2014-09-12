@@ -92,7 +92,7 @@ public class StorageManager {
     }
 
     public void updateLocation(double lat, double lon ){
-        if(mSample!=null) {
+        if(mSample != null) {
             mSample.setLatitude(lat);
             mSample.setLongitude(lon);
             mSample.setStatus(Entity.STATUS_UPDATED);
@@ -101,6 +101,8 @@ public class StorageManager {
             } catch (AdaFrameworkException e) {
                 e.printStackTrace();
             }
+        }else{
+            Log.i(TAG,"unable update location");
         }
     }
 

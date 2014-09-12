@@ -128,89 +128,34 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sensor, container, false);
 
-        viewGroupSensor = (ViewGroup) v.findViewById(R.id.container_sensor);
         btnIniciar = (Button) v.findViewById(R.id.btn_iniciar);
-
-
         if(BaseActivity.MONITORING) btnIniciar.setText(R.string.btn_stop);
-        createSensorView();
+            createSensorView(v);
         return v;
     }
 
     //crea la vista de los sensores
-    private void createSensorView() {
+    private void createSensorView(View v) {
 
-        //vista del sensor de temperatura
-        final ViewGroup temperature = (ViewGroup) LayoutInflater.from(getActivity()).inflate(
-                R.layout.sensor_layout_temp, viewGroupSensor, false);
+        tempValue = (TextView) v.findViewById(R.id.temp_value);
+        seekbarTemperature = (SeekArc) v.findViewById(R.id.seekbar_temp);
+        statusTemp = (TextView) v.findViewById(R.id.temperature_status_txt);
 
+        tempDecimal = (TextView) v.findViewById(R.id.temp_decimal);
 
-        tempValue = (TextView) temperature.findViewById(R.id.temp_value);
-        seekbarTemperature = (SeekArc) temperature.findViewById(R.id.seekbar_temp);
-        statusTemp = (TextView) temperature.findViewById(R.id.temperature_status_txt);
-
-        //TextView titleTemp = (TextView)temperature.findViewById(R.id.sensor_name);
-
-
-        tempDecimal = (TextView) temperature.findViewById(R.id.temp_decimal);
-        temperature.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewGroupSensor.removeView(temperature);
-                if (viewGroupSensor.getChildCount() == 1) {
-                    showMessage("No hay sensores Seleccionados", CustomMessage.WARNING);
-                    btnIniciar.setVisibility(View.GONE);
-                    //temperature.findViewById(R.id.container_empty).setVisibility(View.VISIBLE);
-                }
-            }
-        });
         //vista del sensor de luz
-        final ViewGroup light = (ViewGroup) LayoutInflater.from(getActivity()).inflate(
-                R.layout.sensor_layout_light, viewGroupSensor, false);
-        lightValue = (TextView) light.findViewById(R.id.lux_value);
-        lightDecimal = (TextView) light.findViewById(R.id.lux_decimal);
-        seekbarLight = (SeekArc) light.findViewById(R.id.seekbar_light);
-        statusLight = (TextView) light.findViewById(R.id.light_status_txt);
-        ///TextView titleLight = (TextView)light.findViewById(R.id.sensor_name);
+        lightValue = (TextView) v.findViewById(R.id.lux_value);
+        lightDecimal = (TextView) v.findViewById(R.id.lux_decimal);
+        seekbarLight = (SeekArc) v.findViewById(R.id.seekbar_light);
+        statusLight = (TextView) v.findViewById(R.id.light_status_txt);
 
-
-        light.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewGroupSensor.removeView(light);
-                if (viewGroupSensor.getChildCount() == 1) {
-                    showMessage("No hay sensores Seleccionados", CustomMessage.WARNING);
-                    btnIniciar.setVisibility(View.GONE);
-                    //temperature.findViewById(R.id.container_empty).setVisibility(View.VISIBLE);
-                }
-            }
-        });
         //vista del sensor de humedad
-        final ViewGroup humidity = (ViewGroup) LayoutInflater.from(getActivity()).inflate(
-                R.layout.sensor_layout_hum, viewGroupSensor, false);
-        humValue = (TextView) humidity.findViewById(R.id.hum_value);
-        humDecimal = (TextView) humidity.findViewById(R.id.hum_decimal);
-        seekbarHumidity = (SeekArc) humidity.findViewById(R.id.seekbar_hum);
-        statusHum = (TextView) humidity.findViewById(R.id.humidity_status_txt);
 
-        //TextView titleHum = (TextView)humidity.findViewById(R.id.sensor_name);
+        humValue = (TextView) v.findViewById(R.id.hum_value);
+        humDecimal = (TextView) v.findViewById(R.id.hum_decimal);
+        seekbarHumidity = (SeekArc) v.findViewById(R.id.seekbar_hum);
+        statusHum = (TextView) v.findViewById(R.id.humidity_status_txt);
 
-
-        humidity.findViewById(R.id.sensor_remove).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewGroupSensor.removeView(humidity);
-                if (viewGroupSensor.getChildCount() == 1) {
-                    showMessage("No hay sensores Seleccionados", CustomMessage.WARNING);
-                    btnIniciar.setVisibility(View.GONE);
-                    //temperature.findViewById(R.id.container_empty).setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        viewGroupSensor.addView(temperature, 0);
-        viewGroupSensor.addView(light, 1);
-        viewGroupSensor.addView(humidity, 2);
         btnIniciar.setOnClickListener(this);
     }
 
@@ -290,14 +235,6 @@ public class SensorFragment extends Fragment implements View.OnClickListener, Sh
             Log.e(TAG, "error _:" +e.toString());
         }
 
-    }
-
-
-    public void resetView() {
-        if (viewGroupSensor.getChildCount() == 1) {
-            createSensorView();
-            btnIniciar.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override

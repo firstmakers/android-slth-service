@@ -30,14 +30,14 @@ public class GeoLocation implements LocationListener{
     boolean canGetLocation = false;
 
     Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
+    double latitude =0; // latitude
+    double longitude =0; // longitude
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 30 * 1; // 30 seconds
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -77,6 +77,7 @@ public class GeoLocation implements LocationListener{
                         if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
+                            Log.d("Network", "Network_provider " + latitude +" "+longitude);
                         }
                     }
                 }
@@ -94,6 +95,7 @@ public class GeoLocation implements LocationListener{
                             if (location != null) {
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
+                                Log.d("gps", "gps_provider " + latitude +" "+longitude);
                             }
                         }
                     }

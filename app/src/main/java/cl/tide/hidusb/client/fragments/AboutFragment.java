@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import cl.tide.hidusb.BuildConfig;
 import cl.tide.hidusb.R;
 import cl.tide.hidusb.client.BaseActivity;
 import cl.tide.hidusb.client.HomeActivity;
@@ -63,7 +65,10 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View v = inflater.inflate(R.layout.fragment_about, container, false);
+        TextView version = (TextView) v.findViewById(R.id.version);
+        version.setText(BuildConfig.VERSION_NAME);
+        return v;
     }
 
 

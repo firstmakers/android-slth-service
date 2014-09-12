@@ -237,9 +237,11 @@ public class HIDUSBService extends Service implements SLTHEventListener{
         if(mSLTH != null){
             mSLTH.startMonitor(interval, samples);
             mStorageManager.createSample(interval ,samples);
-            if(!geoLocation.canGetLocation()){
+            if(!geoLocation.canGetLocation()) {
                 geoLocation.showSettingsAlert();
             }
+            mStorageManager.updateLocation(geoLocation.getLatitude(),
+                    geoLocation.getLongitude());
 
         }else {
             System.out.println("Not access to device");
