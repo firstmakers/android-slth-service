@@ -48,6 +48,10 @@ public class ExportExcel {
         Sheet sheet = workbook.createSheet("Muestras");
         Iterator<Data> iterator = mData.getData().iterator();
 
+
+
+
+
         int rowIndex = 0;
         //título del archivo;
         Row rowtitle = sheet.createRow(rowIndex++);
@@ -74,6 +78,12 @@ public class ExportExcel {
         CellStyle cs = workbook.createCellStyle();
         cs.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
         cs.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        cs.setAlignment(CellStyle.ALIGN_CENTER);
+
+        cs.setBorderBottom(CellStyle.BORDER_MEDIUM);
+
+
+
 
         if(mData.getType().equals("0x87")){
             cellTemp = cell++;
@@ -96,6 +106,9 @@ public class ExportExcel {
         fecha0.setCellValue(context.getString(R.string.datetime));
         fecha0.setCellStyle(cs);
 
+        CellStyle csContent = workbook.createCellStyle();
+
+        csContent.setAlignment(CellStyle.ALIGN_CENTER);
 
         while (iterator.hasNext()) {
             Data sample = iterator.next();
@@ -103,18 +116,24 @@ public class ExportExcel {
             if(cellTemp > -1){
                 Cell cell0 = row.createCell(cellTemp);
                 cell0.setCellValue(sample.getTemperature());
+                cell0.setCellStyle(csContent);
             }
             if(cellLum> -1){
                 Cell cell1 = row.createCell(cellLum);
                 cell1.setCellValue(sample.getLight());
+                cell1.setCellStyle(csContent);
             }
             if(cellHum > -1){
                 Cell cell1 = row.createCell(cellHum);
                 cell1.setCellValue(sample.getHumidity());
+                cell1.setCellStyle(csContent);
             }
 
             Cell fecha = row.createCell(cell);
             fecha.setCellValue(sample.getDatetime());
+            fecha.setCellStyle(csContent);
+
+            sheet.setDefaultColumnWidth(16);
         }
 
         String root_sd = Environment.getExternalStorageDirectory().toString();
