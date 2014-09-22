@@ -57,7 +57,7 @@
         android:title="@string/pref_range">
 
         <cl.tide.hidusb.client.util.RangeOptionPreferences
-            android:icon="@drawable/ic_estadisticas"
+            android:icon="@drawable/ic_action_medium_settings"
             android:title="@string/pref_range"
             android:dialogMessage="@string/pref_range"
             app:tempMax="3"

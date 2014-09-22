@@ -70,6 +70,7 @@
     <string name="measure_light">lux</string>
     <string name="measure_hum">hs</string>
     <string name="hour">Hora</string>
+    <string name="datetime">Fecha/Hora</string>
     <string name="ind_sample">muestra(s)</string>
     <string name="ind_interval">segundo(s)</string>
     <string name="gps_settings">Configurar</string>
@@ -78,5 +79,16 @@
     <string name="about_developed">Desarrollado por TIDE S.A.</string>
     <string name="about_year">2014</string>
     <string name="about_btn">Visitar Sitio Web</string>
+    <string name="action_share">Compartir</string>
+    <string name="action_to_excell">Exportar  archivo Excel</string>
+    <string name="action_to_excel">Exportar a Excel</string>
+    <string name="name">Nombre</string>
+    <string name="latitude">Latitud</string>
+    <string name="longitude">Longitud</string>
+    <string name="write_file">Archivo guardado en</string>
+    <string name="write_file_error">Error al guardar el archivo</string>
+    <string name="only_one_item">Sólo se puede exportar un archivo a la vez</string>
+    <string name="error_open_file">Error al abrir el achivo</string>
+
 
 </resources>

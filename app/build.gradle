@@ -4,6 +4,11 @@ android {
     compileSdkVersion 20
     buildToolsVersion '19.1.0'
 
+    packagingOptions{
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
     defaultConfig {
         applicationId "cl.tide.hidusb"
         minSdkVersion 13
@@ -26,5 +31,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:20.0.0'
     compile 'com.android.support:support-v4:20.0.0'
     compile 'com.google.android.gms:play-services:4.4.52'
-
+    compile files('libs/poi-3.10-FINAL-20140208.jar')
 }

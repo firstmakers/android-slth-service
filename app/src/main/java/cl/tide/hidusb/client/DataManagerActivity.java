@@ -1,8 +1,10 @@
 package cl.tide.hidusb.client;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.ActionMode;
@@ -12,10 +14,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import cl.tide.hidusb.R;
 import cl.tide.hidusb.client.adapter.GridViewFileAdapter;
+import cl.tide.hidusb.client.util.ExportExcel;
 import cl.tide.hidusb.service.storage.sqlite.Samples;
 import cl.tide.hidusb.service.utils.StorageManager;
 
@@ -31,7 +38,7 @@ public class DataManagerActivity extends BaseActivity {
     public String email = "";
     private TextView txt;
     private static String TAG = "DATA_MANAGER";
-    public static String DATACONTEXT ="cl.tide.hidusb.parcelable.data";
+    public static String DATACONTEXT = "cl.tide.hidusb.parcelable.data";
     private StorageManager dataLogger;
 
     @Override
@@ -63,7 +70,7 @@ public class DataManagerActivity extends BaseActivity {
     }
 
     /***/
-    private void loadSample(int position){
+    private void loadSample(int position) {
 
         Intent intent = new Intent(this, DetailSampleActivity.class);
         intent.putExtra(DetailSampleActivity.ID_SAMPLE, dataBase.get(position).getID());
@@ -73,7 +80,7 @@ public class DataManagerActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
@@ -132,19 +139,19 @@ public class DataManagerActivity extends BaseActivity {
 
         @Override
         public void onItemCheckedStateChanged(android.view.ActionMode mode, int i, long l, boolean b) {
-               int selectCount = gridView.getCheckedItemCount();
-                Log.d("ActionMenu", " count " + selectCount +" position " + i);
-                dataBase.get(i).setSelected(b);
-                Log.d("ActionMenu", " selected " + dataBase.get(i).getID());
-                switch (selectCount) {
-                    case 1:
-                        mode.setSubtitle(R.string.item_selected);
-                        break;
-                    default:
-                        String string = getString(R.string.many_items_selected);
-                        mode.setSubtitle("" + selectCount + " "+ string);
-                        break;
-                }
+            int selectCount = gridView.getCheckedItemCount();
+            Log.d("ActionMenu", " count " + selectCount + " position " + i);
+            dataBase.get(i).setSelected(b);
+            Log.d("ActionMenu", " selected " + dataBase.get(i).getID());
+            switch (selectCount) {
+                case 1:
+                    mode.setSubtitle(R.string.item_selected);
+                    break;
+                default:
+                    String string = getString(R.string.many_items_selected);
+                    mode.setSubtitle("" + selectCount + " " + string);
+                    break;
+            }
         }
 
         @Override
@@ -164,58 +171,75 @@ public class DataManagerActivity extends BaseActivity {
         @Override
         public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
             int id = item.getItemId();
+            List<Samples> selectedItems = new ArrayList<Samples>();
+            for (Samples file : dataBase) {
+                if (file.isSelected()) {
+                    selectedItems.add(file);
 
-                 switch (id) {
-                    case R.id.action_delete: {
-                        List<Samples> deleteItems = new ArrayList<Samples>();
-                        for(Samples file : dataBase){
-                            if(file.isSelected()){
-                                deleteItems.add(file);
-
-                            }
-                        }
-                        for(Samples delete :deleteItems){
-                            dataLogger.delete(delete);
-                            data.remove(delete.getDate());
-                            Log.i(TAG,"delete "+ delete.getID());
-                        }
-                        adapter.notifyDataSetChanged();
-                        if(data.size() == 0){
-                            txt.setVisibility(View.VISIBLE);
-                        }
-                        //update new database items
-                        dataBase = dataLogger.getAllSamples();
-                        mode.finish();
-                        break;
-                    }
-                     /*case R.id.action_share: {
-
-                        final Intent ei = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                        ei.setType("plain/text");
-                        ei.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
-                        ei.putExtra(Intent.EXTRA_SUBJECT, "Reporte SLTH");
-
-                        ArrayList<Uri> uris = new ArrayList<Uri>();
-
-                        for(int i = 0; i< myList.size(); i++){
-                            if(myList.get(i).isSelected()) {
-                                String root_sd = Environment.getExternalStorageDirectory().toString();
-                                file = new File(root_sd + ExportToExcel.ROOT_DIRECTORY);
-
-                                Uri u = Uri.parse(file.toURI()+ myList.get(i).getFile());
-                                Log.e("Adjuntos ", u.toString());
-                                uris.add(u);
-                            }
-                        }
-                        String title = getString(R.string.title_share_mail);
-                        ei.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-                        startActivityForResult(Intent.createChooser(ei, title), 12345);
-
-                        break;
-                    }*/
-                    default:
-                        return false;
                 }
+            }
+            switch (id) {
+                case R.id.action_delete: {
+
+                    for (Samples delete : selectedItems) {
+                        dataLogger.delete(delete);
+                        data.remove(delete.getDate());
+                        Log.i(TAG, "delete " + delete.getID());
+                    }
+                    adapter.notifyDataSetChanged();
+                    if (data.size() == 0) {
+                        txt.setVisibility(View.VISIBLE);
+                    }
+                    //update new database items
+                    dataBase = dataLogger.getAllSamples();
+                    mode.finish();
+                    break;
+                }
+                case R.id.action_share: {
+
+                    final Intent ei = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                    ei.setType("plain/text");
+                    ei.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+                    ei.putExtra(Intent.EXTRA_SUBJECT, "Reporte SLTH");
+
+                    ArrayList<Uri> uri = new ArrayList<Uri>();
+
+                    if (selectedItems.size() > 1) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.only_one_item), Toast.LENGTH_SHORT).show();
+                    }
+
+                    File file = ExportExcel.write(selectedItems.get(0), getApplicationContext());
+                    if(file!= null) {
+                        Uri u = Uri.parse(file.toURI() + selectedItems.get(0).getDate());
+                        Log.e("Adjuntos ", u.toString());
+
+                        uri.add(u);
+
+                        String title = getString(R.string.title_share_mail);
+                        ei.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uri);
+                        startActivityForResult(Intent.createChooser(ei, title), 12345);
+                    }else{
+                        Toast.makeText(getApplicationContext(),getString(R.string.error_open_file),Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+                }
+                case R.id.action_to_excel: {
+                    File file = ExportExcel.write(selectedItems.get(0), getApplicationContext());
+                    if(file!= null) {
+
+                        Intent intent = new Intent();
+                        intent.setAction(android.content.Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(file), "application/vnd.ms-excel");
+                        startActivity(intent);
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),getString(R.string.error_open_file),Toast.LENGTH_SHORT).show();
+                    }
+                }
+                default:
+                    return false;
+            }
             return false;
         }
 

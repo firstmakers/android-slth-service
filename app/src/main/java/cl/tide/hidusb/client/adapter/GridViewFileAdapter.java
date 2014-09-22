@@ -61,7 +61,7 @@ public class GridViewFileAdapter extends ArrayAdapter<String> {
 
 
             holder.txtTitle.setText(data.get(position));
-            holder.imageItem.setImageResource(R.drawable.ic_excel);
+            holder.imageItem.setImageResource(R.drawable.ic_file);
             l.setLayoutParams(new GridView.LayoutParams(
                     GridView.LayoutParams.FILL_PARENT,
                     GridView.LayoutParams.FILL_PARENT));
