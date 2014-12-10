@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +14,6 @@ import android.widget.TextView;
 import com.edmodo.rangebar.RangeBar;
 
 import cl.tide.hidusb.R;
-import cl.tide.hidusb.client.HomeActivity;
-import cl.tide.hidusb.client.SettingsActivity;
 
 
 /**

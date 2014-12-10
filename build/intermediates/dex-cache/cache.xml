@@ -1,59 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pre-dex-items>
+<items version="2" >
 
     <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-61f1a170e86bf3d31097778c85b9830c1d6a8ef2.jar"
-        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/classes.jar"
         jumboMode="false"
-        revision="19.1.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+        revision="21.1.1"
+        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-09ee934a0ab5656e04044a62c37bea640fd9239b.jar" />
+    </item>
     <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/androidplot-core-0.6.2-SNAPSHOT-315309f04dacfcae52b930e7f50bffe3555e0594.jar"
         jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/androidplot-core-0.6.2-SNAPSHOT.jar"
         jumboMode="false"
-        revision="19.1.0"
-        sha1="161234ca48d0c64e5a4366a35219101f79eddee5"/>
+        revision="21.1.1"
+        sha1="161234ca48d0c64e5a4366a35219101f79eddee5">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/androidplot-core-0.6.2-SNAPSHOT-315309f04dacfcae52b930e7f50bffe3555e0594.jar" />
+    </item>
     <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-dd73384d1281d7042c92c6a032ce2ad2c4f99c36.jar"
-        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
         jumboMode="false"
-        revision="19.1.0"
-        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
+        revision="21.1.1"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-e8e13474a7980253f3d6439c5f30b96092be4817.jar" />
+    </item>
     <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-7774c584ef3030854295a82d929d8aabe95634a0.jar"
-        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/classes.jar"
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
         jumboMode="false"
-        revision="19.1.0"
-        sha1="3dfdf1db5ce5ea2999a5dcde8c8e650b02660059"/>
+        revision="21.1.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-0ddf999d9433c0693082a0fb8a9441e757f5b5cf.jar" />
+    </item>
     <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/release/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
-    <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/poi-3.10-FINAL-20140208-7814397bede82d3ceae6975b7f2ec32e9a089521.jar"
         jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/poi-3.10-FINAL-20140208.jar"
         jumboMode="false"
-        revision="19.1.0"
-        sha1="e22fd3bb6a7152bd7d07c7e8901c2451b601725f"/>
+        revision="21.1.1"
+        sha1="e22fd3bb6a7152bd7d07c7e8901c2451b601725f">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/poi-3.10-FINAL-20140208-7814397bede82d3ceae6975b7f2ec32e9a089521.jar" />
+    </item>
     <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/com.mobandme.ada_v2.4.1-5ce721a961bc2bc1e803d71e3ba233fee049bbd1.jar"
-        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/com.mobandme.ada_v2.4.1.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="ae0c8d2c778a897c64bac70669bfa9915930c6cb"/>
-    <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-8217756eeea84a8947833856a960b41c2a999693.jar"
-        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
-    <item
-        dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/poi-ooxml-3.10-FINAL-20140208-2ae92f49f6928584787713df1b86bb0e1d54362f.jar"
         jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/poi-ooxml-3.10-FINAL-20140208.jar"
         jumboMode="false"
-        revision="19.1.0"
-        sha1="42b365f90a4bedbf95944a409c8a25d5952bc3af"/>
+        revision="21.1.1"
+        sha1="42b365f90a4bedbf95944a409c8a25d5952bc3af">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/poi-ooxml-3.10-FINAL-20140208-2ae92f49f6928584787713df1b86bb0e1d54362f.jar" />
+    </item>
+    <item
+        jar="/Applications/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.2-c1238235ad2859e796c68118a6370761db787d8a.jar" />
+    </item>
+    <item
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/libs/com.mobandme.ada_v2.4.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="ae0c8d2c778a897c64bac70669bfa9915930c6cb">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/com.mobandme.ada_v2.4.1-5ce721a961bc2bc1e803d71e3ba233fee049bbd1.jar" />
+    </item>
+    <item
+        jar="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/Users/eDelgado/Proyectos TIDE/AndroidStudioProjects/SLTH_service/app/build/intermediates/pre-dexed/debug/classes-713902075ca00e78499a2eb3dbfbfd1ffe2148c8.jar" />
+    </item>
 
-</pre-dex-items>
+</items>

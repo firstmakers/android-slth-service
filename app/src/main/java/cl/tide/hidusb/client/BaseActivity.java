@@ -7,12 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.hardware.usb.UsbManager;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,12 +17,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.ActivityManager.RunningServiceInfo;
-import android.widget.Button;
 
 import cl.tide.hidusb.client.fragments.AboutFragment;
 import cl.tide.hidusb.client.fragments.ChartFragment;
 import cl.tide.hidusb.client.fragments.SensorFragment;
-import cl.tide.hidusb.client.fragments.StatisticsFragment;
+import cl.tide.hidusb.client.fragments.SettingsFragment;
 import cl.tide.hidusb.client.util.NavigationDrawerFragment;
 import cl.tide.hidusb.service.HIDUSBService;
 import cl.tide.hidusb.R;
@@ -226,7 +222,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Navigati
                 startActivity(new Intent(this, DataManagerActivity.class));
                 break;
             case 3: //config
-                startActivity(new Intent(this ,SettingsActivity.class));
+                startActivity(new Intent(this , SettingActivity.class));
                 break;
             case 4:
                 fragmentManager.beginTransaction().addToBackStack("aboutview")

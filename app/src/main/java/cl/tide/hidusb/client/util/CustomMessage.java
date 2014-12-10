@@ -40,8 +40,8 @@ public class CustomMessage extends Toast {
         this.setView(view);
         TextView tv = (TextView) view.findViewById(R.id.tv_message);
         tv.setText(message);
-        //ancho de la actionbar
-        int Y = context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height);
+        //alto de la actionbar
+        int Y = context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
         //alineado arriba debajo de la actionbar
         this.setGravity(Gravity.TOP| Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK,0,Y);
     }

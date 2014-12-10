@@ -33,4 +33,7 @@
     <color name="info">#193770</color>
     <color name="footer">#039ebc</color>
 
+    <color name="primary">#9E9E9E</color>
+    <color name="primaryDark">#212121</color>
+    <color name="accent">#E65100</color>
 </resources>
